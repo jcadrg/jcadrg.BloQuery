@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,8 +18,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; //Appdelegate similar to Blocstagram's
+    
+    
+    //[Parse enableLocalDatastore];
+    
     [Parse setApplicationId:@"rZAuSHkV8LtX9Tpjq6pcpPd6XIlTpIjZeRzxHxWJ"
     clientKey:@"fgnLN8PbCsDVOpjhOQe72JeZCuJ87It66cF8dfDq"];
+    
+    ViewController *viewController = [[ViewController alloc] init];
+    
+    UINavigationController *navVC = [[UINavigationController alloc] init];
+    [navVC setViewControllers:@[viewController] animated:YES];
+    
+    
+    self.window.rootViewController = navVC;
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

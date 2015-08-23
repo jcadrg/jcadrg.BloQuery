@@ -8,6 +8,11 @@
 
 #import <Parse/Parse.h>
 
-@interface User : PFUser
+@interface User : PFUser <PFSubclassing>
+
+//@property (nonatomic, strong) NSString *test;
+@property (nonatomic,strong) NSString *profileImageURL;
+@property (nonatomic, strong) NSString *description;
+
 
 @end

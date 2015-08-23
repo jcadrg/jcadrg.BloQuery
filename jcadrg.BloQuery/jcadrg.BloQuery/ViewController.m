@@ -8,11 +8,11 @@
 
 #import "ViewController.h"
 #import <ParseUI/ParseUI.h>
+#import "User.h"
 #import <Parse/Parse.h>
-#import "LogInViewController.h"
-#import "SignUpViewController.h"
 
-@interface ViewController ()<PFSignUpViewControllerDelegate,PFLogInViewControllerDelegate>
+
+@interface ViewController ()<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
 
 @end
 
@@ -20,77 +20,70 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    [PFUser logOut];
+
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    if(![PFUser currentUser]){
+    if (![User currentUser]) {
         
-        //Customize the login view controller
-        LogInViewController *loginVC = [[LogInViewController alloc] init];
-        loginVC.delegate = self;
-        loginVC.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton | PFLogInFieldsDismissButton | PFSignUpFieldsSignUpButton;
+        PFLogInViewController *loginViewController = [[PFLogInViewController alloc] init];
+        [loginViewController setDelegate:self];
         
-        //Customize the sign up view controller
+        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
+        [signUpViewController setDelegate:self];
         
-        SignUpViewController *signupVC = [[SignUpViewController alloc] init];
-        signupVC.delegate = self;
-        signupVC.fields = PFSignUpFieldsUsernameAndPassword | PFSignUpFieldsEmail | PFSignUpFieldsSignUpButton | PFSignUpFieldsDismissButton;
-        loginVC.signUpController = signupVC;
+        [loginViewController setSignUpController:signUpViewController];
         
-        [self presentViewController:loginVC animated:YES completion:nil];
+        [self presentViewController:loginViewController animated:YES completion:nil];
     }
+    
 }
 
-#pragma mark - PFSignUpViewControllerDelegate
+#pragma mark  - PFSignUpViewController delegate
 
 -(BOOL) signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info{
-    BOOL informationComplete = YES;
     
-    //loop through all of the submitted data
+    BOOL fieldsFilled = YES;
+    
     for (id key in info) {
         NSString *field = [info objectForKey:key];
-        if (!field || !field.length) {
-            informationComplete = NO;
+        if (!field || field.length == 0) {
+            fieldsFilled = NO;
             break;
         }
     }
     
-    if (!informationComplete) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Field", nil) message:NSLocalizedString(@"Make sure to fill al required fields!", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
+    if (!fieldsFilled) {
+        [[[UIAlertView alloc] initWithTitle:@"Field Missing" message:@"Make sure to fill all required fields!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
     
-    return informationComplete;
+    return fieldsFilled;
     
 }
 
-//Send the delegate that PFUser is signed up!
 -(void) signUpViewController:(PFSignUpViewController * __nonnull)signUpController didSignUpUser:(PFUser * __nonnull)user{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-//Sign up failed
 -(void) signUpViewController:(PFSignUpViewController * __nonnull)signUpController didFailToSignUpWithError:(nullable NSError *)error{
-    NSLog(@"Sign Up Failed : %@", error);
+    NSLog(@"Signup failed: %@", error);
 }
 
 -(void) signUpViewControllerDidCancelSignUp:(PFSignUpViewController * __nonnull)signUpController{
-    NSLog(@"Sign Up Dismissed");
+    NSLog(@"Signup dismissed");
 }
 
-#pragma mark - PFLoginViewControllerDelegate
+#pragma mark - PFLoginViewController delegate
 
 -(BOOL) logInViewController:(PFLogInViewController * __nonnull)logInController shouldBeginLogInWithUsername:(NSString * __nonnull)username password:(NSString * __nonnull)password{
-    
-    if (username && password && username.length && password.length) {
+    if (username && password && username.length !=0 && password.length !=0) {
         return YES;
     
     }else{
+        [[[UIAlertView alloc] initWithTitle:@"Field missing" message:@"Make sure to fill all required fields!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Field", nil) message:NSLocalizedString(@"Make sure to fill all required fields!", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
         return NO;
     }
 
@@ -101,12 +94,14 @@
 }
 
 -(void) logInViewController:(PFLogInViewController * __nonnull)logInController didFailToLogInWithError:(nullable NSError *)error{
-    NSLog(@"Login Failed: %@",error);
+    [[[UIAlertView alloc]initWithTitle:@"Login failed" message:@"User and password don't match" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 -(void) logInViewControllerDidCancelLogIn:(PFLogInViewController * __nonnull)logInController{
-    NSLog(@"Login Dismissed");
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

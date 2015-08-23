@@ -7,7 +7,18 @@
 //
 
 #import "User.h"
+#import <Parse/PFObject+Subclass.h>
 
 @implementation User
+
+//@dynamic test;
+@dynamic description;
+@dynamic profileImageURL;
+
+
++(void) load{
+    [User registerSubclass];
+}
+
 
 @end

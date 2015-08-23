@@ -15,10 +15,10 @@
 		5D271F541B868E2D00D378FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F531B868E2D00D378FE /* Images.xcassets */; };
 		5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F551B868E2D00D378FE /* LaunchScreen.xib */; };
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
+		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
+		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
 		5DF94D861B869A41007F12D0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D851B869A41007F12D0 /* libsqlite3.dylib */; };
-		5DF94D8F1B869BDB007F12D0 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF94D8E1B869BDB007F12D0 /* SignUpViewController.m */; };
-		5DF94D921B869FE0007F12D0 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DF94D911B869FE0007F12D0 /* LogInViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,12 +47,12 @@
 		5D271F5C1B868E2D00D378FE /* jcadrg.BloQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcadrg.BloQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F611B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jcadrg_BloQueryTests.m; sourceTree = "<group>"; };
+		5DD9C30D1B8990B300B507D7 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
+		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
+		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		5DE360431B880209002790CE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		5DF94D831B869A20007F12D0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DF94D851B869A41007F12D0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		5DF94D8D1B869BDB007F12D0 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		5DF94D8E1B869BDB007F12D0 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
-		5DF94D901B869FE0007F12D0 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		5DF94D911B869FE0007F12D0 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		788D7D79482CB607C8EF39A5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,10 +112,10 @@
 			children = (
 				5D271F4A1B868E2D00D378FE /* AppDelegate.h */,
 				5D271F4B1B868E2D00D378FE /* AppDelegate.m */,
-				5DF94D901B869FE0007F12D0 /* LogInViewController.h */,
-				5DF94D911B869FE0007F12D0 /* LogInViewController.m */,
-				5DF94D8D1B869BDB007F12D0 /* SignUpViewController.h */,
-				5DF94D8E1B869BDB007F12D0 /* SignUpViewController.m */,
+				5DD9C30D1B8990B300B507D7 /* Query.h */,
+				5DD9C30E1B8990B300B507D7 /* Query.m */,
+				5DE360421B880209002790CE /* User.h */,
+				5DE360431B880209002790CE /* User.m */,
 				5D271F4D1B868E2D00D378FE /* ViewController.h */,
 				5D271F4E1B868E2D00D378FE /* ViewController.m */,
 				5D271F501B868E2D00D378FE /* Main.storyboard */,
@@ -296,11 +296,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DE360441B880209002790CE /* User.m in Sources */,
 				5D271F4F1B868E2D00D378FE /* ViewController.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
-				5DF94D921B869FE0007F12D0 /* LogInViewController.m in Sources */,
-				5DF94D8F1B869BDB007F12D0 /* SignUpViewController.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
+				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
