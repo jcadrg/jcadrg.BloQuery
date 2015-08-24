@@ -7,7 +7,22 @@
 //
 
 #import "Query.h"
+#import <Parse/PFObject+Subclass.h>
 
 @implementation Query
+
+@dynamic user;
+@dynamic query;
+@dynamic answers;
+
+//These 2 methods are the same as the tutorial in parse documentation
+
++(void) load{
+    [Query registerSubclass];
+}
+
++(NSString *) parseClassName{
+    return @"Query";
+}
 
 @end

@@ -10,6 +10,7 @@
 #import <ParseUI/ParseUI.h>
 #import "User.h"
 #import <Parse/Parse.h>
+#import "Query.h"
 
 
 @interface ViewController ()<PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
@@ -37,6 +38,21 @@
         [loginViewController setSignUpController:signUpViewController];
         
         [self presentViewController:loginViewController animated:YES completion:nil];
+    
+    } else{
+        //Save testing similar as the tutorial on saving pfobjects
+        
+        Query *test = [Query object];
+        test.user = [User object];
+        test.answers = @[];
+        test.query = @"Can anyone see this question?";
+        [test saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"Success!");
+            } else {
+                NSLog(@"Failed!");
+            }
+        }];
     }
     
 }
@@ -100,6 +116,8 @@
 -(void) logInViewControllerDidCancelLogIn:(PFLogInViewController * __nonnull)logInController{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 
 

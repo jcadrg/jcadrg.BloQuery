@@ -7,7 +7,13 @@
 //
 
 #import <Parse/Parse.h>
+#import "User.h"
 
-@interface Query : PFObject
+@interface Query : PFObject <PFSubclassing>
+
+@property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSString *query;
+@property (nonatomic, strong) NSArray *answers;
+
 
 @end
