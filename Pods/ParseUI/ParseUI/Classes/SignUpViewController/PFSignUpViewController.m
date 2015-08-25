@@ -111,7 +111,7 @@ static NSString *const PFSignUpViewControllerDelegateInfoAdditionalKey = @"addit
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self _setupHandlers];
 }
 

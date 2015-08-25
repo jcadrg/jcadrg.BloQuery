@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-#import "ViewController.h"
+#import "QueryTableViewController.h"
+#import "DataSource.h"
 
 @interface AppDelegate ()
 
@@ -22,15 +23,18 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]; //Appdelegate similar to Blocstagram's
     
     
-    //[Parse enableLocalDatastore];
+    [Parse enableLocalDatastore];
     
     [Parse setApplicationId:@"rZAuSHkV8LtX9Tpjq6pcpPd6XIlTpIjZeRzxHxWJ"
     clientKey:@"fgnLN8PbCsDVOpjhOQe72JeZCuJ87It66cF8dfDq"];
     
-    ViewController *viewController = [[ViewController alloc] init];
+    //ViewController *viewController = [[ViewController alloc] init];
     
+    [DataSource sharedInstance];
+    
+    QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] init];
-    [navVC setViewControllers:@[viewController] animated:YES];
+    [navVC setViewControllers:@[queryTableVC] animated:YES];
     
     
     self.window.rootViewController = navVC;

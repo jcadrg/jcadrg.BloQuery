@@ -10,11 +10,14 @@
 		06976BF803F4FC526D5FFC5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 593F7BE5EF1198FC5AB85F2C /* libPods.a */; };
 		5D271F491B868E2D00D378FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F481B868E2D00D378FE /* main.m */; };
 		5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F4B1B868E2D00D378FE /* AppDelegate.m */; };
-		5D271F4F1B868E2D00D378FE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F4E1B868E2D00D378FE /* ViewController.m */; };
 		5D271F521B868E2D00D378FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F501B868E2D00D378FE /* Main.storyboard */; };
 		5D271F541B868E2D00D378FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F531B868E2D00D378FE /* Images.xcassets */; };
 		5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F551B868E2D00D378FE /* LaunchScreen.xib */; };
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
+		5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148331B8B14C60053E9BA /* QueryTableViewController.m */; };
+		5D7148371B8B15710053E9BA /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148361B8B15710053E9BA /* DataSource.m */; };
+		5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */; };
+		5D71483D1B8C23990053E9BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D71483C1B8C23990053E9BA /* ViewController.m */; };
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
@@ -39,14 +42,20 @@
 		5D271F481B868E2D00D378FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5D271F4A1B868E2D00D378FE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5D271F4B1B868E2D00D378FE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5D271F4D1B868E2D00D378FE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5D271F4E1B868E2D00D378FE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5D271F511B868E2D00D378FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D271F531B868E2D00D378FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5D271F561B868E2D00D378FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5D271F5C1B868E2D00D378FE /* jcadrg.BloQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcadrg.BloQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F611B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jcadrg_BloQueryTests.m; sourceTree = "<group>"; };
+		5D7148321B8B14C60053E9BA /* QueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTableViewController.h; sourceTree = "<group>"; };
+		5D7148331B8B14C60053E9BA /* QueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryTableViewController.m; sourceTree = "<group>"; };
+		5D7148351B8B15710053E9BA /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		5D7148361B8B15710053E9BA /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		5D7148381B8C0BE40053E9BA /* QueryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTableViewCell.h; sourceTree = "<group>"; };
+		5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryTableViewCell.m; sourceTree = "<group>"; };
+		5D71483B1B8C23990053E9BA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5D71483C1B8C23990053E9BA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5DD9C30D1B8990B300B507D7 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
 		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -112,12 +121,18 @@
 			children = (
 				5D271F4A1B868E2D00D378FE /* AppDelegate.h */,
 				5D271F4B1B868E2D00D378FE /* AppDelegate.m */,
+				5D7148351B8B15710053E9BA /* DataSource.h */,
+				5D7148361B8B15710053E9BA /* DataSource.m */,
 				5DD9C30D1B8990B300B507D7 /* Query.h */,
 				5DD9C30E1B8990B300B507D7 /* Query.m */,
+				5D7148381B8C0BE40053E9BA /* QueryTableViewCell.h */,
+				5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */,
+				5D7148321B8B14C60053E9BA /* QueryTableViewController.h */,
+				5D7148331B8B14C60053E9BA /* QueryTableViewController.m */,
+				5D71483B1B8C23990053E9BA /* ViewController.h */,
+				5D71483C1B8C23990053E9BA /* ViewController.m */,
 				5DE360421B880209002790CE /* User.h */,
 				5DE360431B880209002790CE /* User.m */,
-				5D271F4D1B868E2D00D378FE /* ViewController.h */,
-				5D271F4E1B868E2D00D378FE /* ViewController.m */,
 				5D271F501B868E2D00D378FE /* Main.storyboard */,
 				5D271F531B868E2D00D378FE /* Images.xcassets */,
 				5D271F551B868E2D00D378FE /* LaunchScreen.xib */,
@@ -297,10 +312,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DE360441B880209002790CE /* User.m in Sources */,
-				5D271F4F1B868E2D00D378FE /* ViewController.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
+				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
+				5D7148371B8B15710053E9BA /* DataSource.m in Sources */,
+				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
+				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,14 +2,12 @@
 //  ViewController.h
 //  jcadrg.BloQuery
 //
-//  Created by Mac on 8/20/15.
+//  Created by Mac on 8/25/15.
 //  Copyright (c) 2015 Mac. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController 
-
+@interface ViewController : UIViewController
 
 @end
-
