@@ -10,11 +10,17 @@
 
 @interface DataSource : NSObject
 
+typedef void (^requestedQueryCompletionBlock)(NSError *error);
+
 @property(nonatomic, strong) NSArray *queryElements;
 
 +(instancetype) sharedInstance;
 
--(void) retrieveQueryFromParse;
+//-(void) retrieveQueryFromParse;
+
+-(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler;
+
+
 
 
 

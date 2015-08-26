@@ -5,7 +5,6 @@
 //  Created by Mac on 8/24/15.
 //  Copyright (c) 2015 Mac. All rights reserved.
 //
-
 #import <Parse/Parse.h> //Did not import parse
 
 #import "DataSource.h"
@@ -18,11 +17,11 @@
 +(instancetype) sharedInstance{
     
     static dispatch_once_t once;
-        static id sharedInstance;
+    static id sharedInstance;
     
-        dispatch_once(&once, ^{
-            sharedInstance = [[self alloc] init];
-        });
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
     
     return sharedInstance;
 }
@@ -30,21 +29,21 @@
 -(instancetype) init{
     self = [super init];
     
-    if (self) {
+    /*if (self) {
         if ([User currentUser]) {
             [self saveQueryToParse];
         }
         
     }
     
-    [self retrieveQueryFromParse];
+    [self retrieveQueryFromParse];*/
     
-
+    
     
     return self;
 }
 
--(void) saveQueryToParse{
+/*-(void) saveQueryToParse{
     
     if ([User currentUser]) {
         Query *test = [Query object];
@@ -53,7 +52,7 @@
         test.query = @"Can anyone see this question?";
         [test saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-               NSLog(@"Query creation was a success!");
+                NSLog(@"Query creation was a success!");
             } else {
                 NSLog(@"Query creation failed!");
             }
@@ -72,9 +71,9 @@
         }];
         
     }
-}
+}*/
 
--(void) retrieveQueryFromParse{
+/*-(void) retrieveQueryFromParse{
     
     NSMutableArray *queryArray = [NSMutableArray array];
     
@@ -95,9 +94,43 @@
         
         [DataSource sharedInstance].queryElements =queryArray;
     }];
-     
+    
+    
+    
+}*/
+ 
+-(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler{
+    
+    
+    NSMutableArray *queryArray = [NSMutableArray array];
+    
+    PFQuery *query =[PFQuery queryWithClassName:@"Query"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if (!error){
+            
+            NSLog(@"Retrieved %lu queries", (unsigned long)objects.count);
+            
+            for (PFObject *object in objects){
+                
+                [queryArray addObject:object];
+                
+            }
+        }else{
+            NSLog(@"Error retrieving queries : %@", error);
+        }
+        
+        [DataSource sharedInstance].queryElements =queryArray;
+        
+        if (completionhandler) {
+            completionhandler(nil);
+        }
+    }];
+    
+    
     
     
 }
 
 @end
+
+

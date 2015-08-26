@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[QueryTableViewCell class] forCellReuseIdentifier:@"queryCell"];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -48,7 +49,12 @@
         
         [self presentViewController:loginViewController animated:YES completion:nil];
 
-    } 
+    }else{
+        [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
+            NSLog(@"Obtaining queries from source");
+            [self.tableView reloadData];
+        }];
+    }
     
 }
 
@@ -149,6 +155,7 @@
         [cell.contentView addSubview:queryLabel];
     }*/
     if (queryCell) {
+        queryCell.selectionStyle = UITableViewCellSelectionStyleNone;
         queryCell.delegate =self;
         queryCell.query =[DataSource sharedInstance].queryElements[indexPath.row];
     }
@@ -158,6 +165,10 @@
     // Configure the cell...
     
     return queryCell;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 200;
 }
 
 

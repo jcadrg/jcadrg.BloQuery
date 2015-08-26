@@ -28,7 +28,7 @@
         self.queryLabel = [[UILabel alloc] init];
         self.queryLabel.numberOfLines = 0;
         self.askerLabel = [[UILabel alloc] init];
-        self.askerLabel.numberOfLines =1;
+        self.askerLabel.numberOfLines =0;
         self.answerCounter = [[UILabel alloc] init];
         self.answerCounter.numberOfLines =0;
         
@@ -51,8 +51,8 @@
     CGFloat answerCounterLabelHeight = 20;
     
     self.queryLabel.frame = CGRectMake(padding, padding, CGRectGetWidth(self.contentView.bounds)-padding, queryLabelHeight);
-    self.askerLabel.frame = CGRectMake(0, CGRectGetMaxY(self.queryLabel.frame), CGRectGetWidth(self.bounds), askerLabelHeight);
-    self.answerCounter.frame = CGRectMake(0, CGRectGetMaxY(self.askerLabel.frame), CGRectGetWidth(self.bounds), answerCounterLabelHeight);
+    self.askerLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.queryLabel.frame)+padding, CGRectGetWidth(self.bounds), askerLabelHeight);
+    self.answerCounter.frame = CGRectMake(padding, CGRectGetMaxY(self.askerLabel.frame)+padding, CGRectGetWidth(self.bounds), answerCounterLabelHeight);
     
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
 }
