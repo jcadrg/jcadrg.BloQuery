@@ -45,10 +45,10 @@
 -(void) layoutSubviews{
     [super layoutSubviews];
     
-    CGFloat padding = 10;
-    CGFloat queryLabelHeight = 150;
+    CGFloat padding = 5;
+    CGFloat queryLabelHeight = 50;
     CGFloat askerLabelHeight = 15;
-    CGFloat answerCounterLabelHeight = 20;
+    CGFloat answerCounterLabelHeight = 15;
     
     self.queryLabel.frame = CGRectMake(padding, padding, CGRectGetWidth(self.contentView.bounds)-padding, queryLabelHeight);
     self.askerLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.queryLabel.frame)+padding, CGRectGetWidth(self.bounds), askerLabelHeight);

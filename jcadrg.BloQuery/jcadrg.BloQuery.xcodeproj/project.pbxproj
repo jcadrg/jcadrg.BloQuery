@@ -14,6 +14,7 @@
 		5D271F541B868E2D00D378FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F531B868E2D00D378FE /* Images.xcassets */; };
 		5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F551B868E2D00D378FE /* LaunchScreen.xib */; };
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
+		5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4651B8D907C00234233 /* SingleQueryViewController.m */; };
 		5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148331B8B14C60053E9BA /* QueryTableViewController.m */; };
 		5D7148371B8B15710053E9BA /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148361B8B15710053E9BA /* DataSource.m */; };
 		5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */; };
@@ -48,6 +49,8 @@
 		5D271F5C1B868E2D00D378FE /* jcadrg.BloQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcadrg.BloQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F611B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jcadrg_BloQueryTests.m; sourceTree = "<group>"; };
+		5D68C4641B8D907C00234233 /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
+		5D68C4651B8D907C00234233 /* SingleQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleQueryViewController.m; sourceTree = "<group>"; };
 		5D7148321B8B14C60053E9BA /* QueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTableViewController.h; sourceTree = "<group>"; };
 		5D7148331B8B14C60053E9BA /* QueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryTableViewController.m; sourceTree = "<group>"; };
 		5D7148351B8B15710053E9BA /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 				5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */,
 				5D7148321B8B14C60053E9BA /* QueryTableViewController.h */,
 				5D7148331B8B14C60053E9BA /* QueryTableViewController.m */,
+				5D68C4641B8D907C00234233 /* SingleQueryViewController.h */,
+				5D68C4651B8D907C00234233 /* SingleQueryViewController.m */,
 				5D71483B1B8C23990053E9BA /* ViewController.h */,
 				5D71483C1B8C23990053E9BA /* ViewController.m */,
 				5DE360421B880209002790CE /* User.h */,
@@ -319,6 +324,7 @@
 				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
 				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,
+				5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
