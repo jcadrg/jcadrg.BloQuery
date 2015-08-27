@@ -13,6 +13,7 @@
 #import "Query.h"
 #import "DataSource.h"
 #import "QueryTableViewCell.h"
+#import "SingleQueryViewController.h"
 
 @interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate>
 
@@ -169,6 +170,13 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] init];
+    singleQueryVC.singleQuery =[DataSource sharedInstance].queryElements[indexPath.row];
+    [self.navigationController pushViewController:singleQueryVC animated:YES];
 }
 
 

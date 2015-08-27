@@ -17,7 +17,37 @@
 
 @end
 
+static UIFont *askerAndQueryLabelFont;
+static UIColor *askerAndQueryLabelColor;
+
+static UIFont *answerCounterFont;
+static UIColor *answerCounterColor;
+
+
+static NSParagraphStyle *paragraphStyle;
+
+
+
 @implementation QueryTableViewCell
+
++(void)load{
+    
+    askerAndQueryLabelFont = [UIFont fontWithName:@"Helvetica-Neue" size:14];
+    askerAndQueryLabelColor =[UIColor whiteColor];
+    
+    answerCounterFont = [UIFont fontWithName:@"Georgia" size:11];
+    answerCounterColor = [UIColor whiteColor];
+    
+    
+    
+    NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+        mutableParagraphStyle.headIndent = 20.0;
+        mutableParagraphStyle.firstLineHeadIndent = 20.0;
+        mutableParagraphStyle.tailIndent = -20.0;
+        mutableParagraphStyle.paragraphSpacingBefore = 5;
+    
+        paragraphStyle = mutableParagraphStyle;
+}
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     
@@ -45,7 +75,7 @@
 -(void) layoutSubviews{
     [super layoutSubviews];
     
-    CGFloat padding = 5;
+    CGFloat padding = 10;
     CGFloat queryLabelHeight = 50;
     CGFloat askerLabelHeight = 15;
     CGFloat answerCounterLabelHeight = 15;
