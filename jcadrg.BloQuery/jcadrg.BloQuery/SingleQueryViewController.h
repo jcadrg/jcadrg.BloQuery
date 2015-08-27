@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Query.h"
 
 @interface SingleQueryViewController : UIViewController
+
+@property (nonatomic, strong) Query *singleQuery;
 
 @end
