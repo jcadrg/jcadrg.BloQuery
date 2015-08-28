@@ -1,5 +1,6 @@
 PODS:
   - Bolts/Tasks (1.2.0)
+  - HexColors (2.3.0)
   - Parse (1.8.1):
     - Bolts/Tasks (>= 1.2.0)
   - ParseUI (1.1.5):
@@ -7,10 +8,12 @@ PODS:
     - Parse (~> 1.8)
 
 DEPENDENCIES:
+  - HexColors (~> 2.3)
   - ParseUI
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
   ParseUI: 2c53621ed028ee793f5ab92a551b099689265525
 

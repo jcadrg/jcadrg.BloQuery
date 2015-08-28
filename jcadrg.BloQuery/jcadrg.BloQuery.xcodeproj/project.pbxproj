@@ -15,6 +15,7 @@
 		5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F551B868E2D00D378FE /* LaunchScreen.xib */; };
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
 		5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4651B8D907C00234233 /* SingleQueryViewController.m */; };
+		5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */; };
 		5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148331B8B14C60053E9BA /* QueryTableViewController.m */; };
 		5D7148371B8B15710053E9BA /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148361B8B15710053E9BA /* DataSource.m */; };
 		5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */; };
@@ -51,6 +52,8 @@
 		5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jcadrg_BloQueryTests.m; sourceTree = "<group>"; };
 		5D68C4641B8D907C00234233 /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
 		5D68C4651B8D907C00234233 /* SingleQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleQueryViewController.m; sourceTree = "<group>"; };
+		5D68C4671B8FE12F00234233 /* Query+CellStyleUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Query+CellStyleUtilities.h"; sourceTree = "<group>"; };
+		5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Query+CellStyleUtilities.m"; sourceTree = "<group>"; };
 		5D7148321B8B14C60053E9BA /* QueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTableViewController.h; sourceTree = "<group>"; };
 		5D7148331B8B14C60053E9BA /* QueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryTableViewController.m; sourceTree = "<group>"; };
 		5D7148351B8B15710053E9BA /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				5D7148361B8B15710053E9BA /* DataSource.m */,
 				5DD9C30D1B8990B300B507D7 /* Query.h */,
 				5DD9C30E1B8990B300B507D7 /* Query.m */,
+				5D68C4671B8FE12F00234233 /* Query+CellStyleUtilities.h */,
+				5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */,
 				5D7148381B8C0BE40053E9BA /* QueryTableViewCell.h */,
 				5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */,
 				5D7148321B8B14C60053E9BA /* QueryTableViewController.h */,
@@ -317,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DE360441B880209002790CE /* User.m in Sources */,
+				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,

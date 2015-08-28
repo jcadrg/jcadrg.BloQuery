@@ -14,6 +14,7 @@
 #import "DataSource.h"
 #import "QueryTableViewCell.h"
 #import "SingleQueryViewController.h"
+#import "HexColors.h"
 
 @interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate>
 
@@ -24,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorColor = [UIColor colorWithHexString:@"#dddddd"];
     [self.tableView registerClass:[QueryTableViewCell class] forCellReuseIdentifier:@"queryCell"];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -32,6 +34,17 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) viewWillLayoutSubviews{
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    /*if ([self.tableView respondsToSelector:@selector(layoutMargins:)]) {
+        self.tableView.layoutMargins =UIEdgeInsetsZero;
+    }*/
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -157,6 +170,9 @@
     }*/
     if (queryCell) {
         queryCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if ([queryCell respondsToSelector:@selector(layoutMargins)]) {
+            queryCell.layoutMargins = UIEdgeInsetsZero;
+        }
         queryCell.delegate =self;
         queryCell.query =[DataSource sharedInstance].queryElements[indexPath.row];
     }
@@ -175,7 +191,12 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] init];
-    singleQueryVC.singleQuery =[DataSource sharedInstance].queryElements[indexPath.row];
+    //singleQueryVC.singleQuery =[DataSource sharedInstance].queryElements[indexPath.row];
+    
+    [singleQueryVC setSingleQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
+    
+
+
     [self.navigationController pushViewController:singleQueryVC animated:YES];
 }
 

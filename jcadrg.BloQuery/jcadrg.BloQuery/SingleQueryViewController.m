@@ -7,6 +7,10 @@
 //
 
 #import "SingleQueryViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "HexColors.h"
+#import "Query+CellStyleUtilities.h"
+
 
 @interface SingleQueryViewController ()
 
@@ -19,7 +23,17 @@
 
 @implementation SingleQueryViewController
 
-- (void)viewDidLoad {
+static UIFont *queryFont;
+static UIFont *askerFont;
+static UIFont *answerCounterFont;
+
+static UIColor *queryColor;
+static UIColor *askerColor;
+static UIColor *answerCounterColor;
+
+static NSParagraphStyle *paragraphStyle;
+
+/*- (void)viewDidLoad {
     [super viewDidLoad];
     // There's no need of using reuse identifiers since i only want one cell here.
     
@@ -43,14 +57,81 @@
         }
         
         
-        
     }
 
     
+}*/
+
++(void) load{
+    
+    queryFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+    queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
+    
+    askerFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
+    
+    answerCounterFont = [UIFont fontWithName:@"Georgia" size:12];
+    queryColor = [UIColor colorWithHexString:@"#000000"];
     
     
+    
+    NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    mutableParagraphStyle.headIndent = 10.0;
+    mutableParagraphStyle.firstLineHeadIndent = 10.0;
+    mutableParagraphStyle.tailIndent = -10.0;
+    mutableParagraphStyle.paragraphSpacingBefore = 1;
+    
+    paragraphStyle = mutableParagraphStyle;
+
     
 }
+
+-(void) viewDidLoad{
+    [super viewDidLoad];
+}
+
+-(id) init{
+    
+    self = [super init];
+    
+    if (self) {
+        
+        self.queryLabel = [[UILabel alloc] init];
+        self.queryLabel.numberOfLines =2;
+        self.queryLabel.textColor = queryColor;
+        self.queryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
+        self.askerLabel = [[UILabel alloc] init];
+        self.askerLabel.numberOfLines =1;
+        self.askerLabel.textColor = askerColor;
+        
+        self.answerCounter=[[UILabel alloc] init];
+        self.answerCounter.numberOfLines =1;
+        self.answerCounter.textColor =answerCounterColor;
+        
+        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
+            [self.view addSubview:view];
+        }
+    }
+    
+    
+    
+    return self;
+}
+
+
+-(void) setSingleQuery:(Query *)singleQuery{
+    
+    _singleQuery = singleQuery;
+    
+    self.queryLabel.attributedText = [self.singleQuery queryStringFont:queryFont paragraphStyle:paragraphStyle];
+    self.askerLabel.attributedText = [self.singleQuery askerStringFont:askerFont paragraphStyle:paragraphStyle];
+    self.answerCounter.attributedText = [self.singleQuery answerCounterFont:answerCounterFont paragraphStyle:paragraphStyle];
+    
+}
+    
+    
+
 
 -(void) viewWillLayoutSubviews{
     
@@ -83,5 +164,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+
+    
+    
+    
+
 
 @end
