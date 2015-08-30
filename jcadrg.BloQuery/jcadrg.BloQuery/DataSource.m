@@ -112,7 +112,7 @@
             
             for (PFObject *object in objects){
                 
-                [queryArray addObject:object];
+                [queryArray insertObject:object atIndex:0];
                 
             }
             
