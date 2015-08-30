@@ -19,7 +19,7 @@
 #import "QueryAlertController.h"
 
 
-@interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate>
+@interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate, QueryAlertControllerDelegate>
 
 @end
 
@@ -210,8 +210,21 @@
 -(void) newQuestionButtonPressed{
     QueryAlertController *newQuestion = [QueryAlertController alertControllerWithTitle:NSLocalizedString(@"What is your question?", @"What is your question?") message:NSLocalizedString(@"Type a new question", @"Type a new question") preferredStyle:SDCAlertControllerStyleAlert];
     
-    newQuestion.presentAlertToTableViewController = self;
+    //newQuestion.presentAlertToTableViewController = self;
+    
+    newQuestion.delegate = self;
     [newQuestion presentWithCompletion:nil];
+}
+
+#pragma mark - QueryAlertController delegate
+
+-(void) queryAlertController:(QueryAlertController *) queryAlertController didSubmitQueryText:(NSString *) queryText{
+    
+    [[DataSource sharedInstance] submitQuery:queryText withCompletionHandler:^(NSError *error){
+        [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
+            [self.tableView reloadData];
+        }];
+    }];
 }
 
 

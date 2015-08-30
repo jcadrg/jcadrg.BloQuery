@@ -10,6 +10,7 @@
 #import "DataSource.h"
 #import "User.h"
 #import "Query.h"
+#import "NewAnswer.h"
 
 
 @implementation DataSource
@@ -98,6 +99,8 @@
     
     
 }*/
+
+#pragma mark - query methods
  
 -(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler{
     
@@ -162,6 +165,78 @@
     }
 }
 
+#pragma mark - answer methods
+
+-(void) submitAnswersForQueries:(Query *)query withText:(NSString *)queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler{
+    
+    if ([User currentUser]) {
+        NewAnswer *newAnswer = [NewAnswer object];
+        
+        newAnswer.username = [User currentUser];
+        newAnswer.query = query;
+        newAnswer.textAnswer =  queryText;
+        
+        [newAnswer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if(succeeded){
+                if (completionHandler) {
+                    completionHandler(nil);
+                }
+                
+            }else{
+                NSLog(@"Answer creation failed");
+            }
+            
+            
+        }];
+        
+    }
+    
+}
+
+-(void) retrieveAnswersForQueries:(Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler{
+    
+    NSMutableArray *answersArray = [NSMutableArray array];
+    
+    PFQuery *answer =[PFQuery queryWithClassName:@"NewAnswer"];
+    [answer whereKey:@"Query" equalTo:query];
+    [answer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if (!error){
+            
+            NSLog(@"Retrieved %lu answers", (unsigned long)objects.count);
+            
+            for (PFObject *object in objects){
+                
+                [answersArray addObject:object];
+                
+            }
+
+            
+            if (completionHandler) {
+                completionHandler(nil);
+            }
+            
+            
+        }else{
+            NSLog(@"Error retrieving queries : %@", error);
+        }
+        
+        /*[DataSource sharedInstance].queryElements =queryArray;
+         
+         if (completionhandler) {
+         completionhandler(nil);
+         }*/
+    }];
+    
+}
+
+
+
+
+
+
+#pragma mark - Config method
+
 //Method copied from the Parse iOS tutorial
 
 -(void) retrieveParseConfig{
@@ -179,6 +254,12 @@
         if (!self.configNewQuestion) {
             self.configNewQuestion = @"Ask your question!";
         }
+        
+        self.configNewQuestion = config[@"New Answer"];
+        if (!self.configNewQuestion) {
+            self.configNewQuestion = @"Answer the question!";
+        }
+
 
     }];
 }

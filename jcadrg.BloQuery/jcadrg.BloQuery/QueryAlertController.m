@@ -47,7 +47,8 @@
     
     SDCAlertAction *action = [SDCAlertAction actionWithTitle:NSLocalizedString(@"Post", nil) style:SDCAlertActionStyleDefault handler:^(SDCAlertAction *action){
         
-        [self sendQueryTextToDataSource];
+        //[self sendQueryTextToDataSource];
+        [self.delegate queryAlertController:self didSubmitQueryText:self.textField.text];
     
     }];
     
@@ -80,14 +81,19 @@
 
 -(BOOL) textFieldDismiss:(UITextField *) textField{
     
-    [self sendQueryTextToDataSource];
+    //[self sendQueryTextToDataSource];
+    
+    [self.delegate queryAlertController:self didSubmitQueryText:self.textField.text];
+    
+    
     [textField resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
     
     return YES;
 }
 
--(void) sendQueryTextToDataSource{
+
+/*-(void) sendQueryTextToDataSource{            NO LONGER NEEDED SINCE I'M USING THE DELEGATE METHOD TO SEND THE QUERIES/ANSWERS TO THE DATA SOURCE!
     self.queryText = self.textField.text;
     [[DataSource sharedInstance] submitQuery:self.queryText withCompletionHandler:^(NSError *error){
         [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
@@ -95,7 +101,7 @@
         }];
     }];
     
-}
+}*/
 
 
 

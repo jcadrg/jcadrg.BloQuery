@@ -21,6 +21,7 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
+@property (nonatomic, strong) NSString *configNewAnswer;
 
 +(instancetype) sharedInstance;
 
@@ -29,11 +30,14 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 -(void) retrieveParseConfig;
 
 -(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler;
--(void) submitQuery:(NSString *) queryText withCompletionHandler:(submittedAnswerCompletionBlock)completionHandler;
+-(void) submitQuery:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
 
-//Dont do this yet
--(void) retrieveAnwerForQuery: (Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
--(void) submitAnswerForQuery:(NSString *) answerText withCompletionHandler:(submittedAnswerCompletionBlock)completionHandler;
+
+
+
+
+-(void) submitAnswersForQueries:(Query *)query withText:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
+-(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
 
 
 

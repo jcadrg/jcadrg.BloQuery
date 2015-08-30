@@ -8,8 +8,20 @@
 
 #import "SDCAlertController.h"
 
+@class QueryAlertController;
+
+@protocol QueryAlertControllerDelegate <NSObject>
+
+-(void) queryAlertController:(QueryAlertController *) queryAlertController didSubmitQueryText:(NSString *) queryText;
+
+@end
+
 @interface QueryAlertController : SDCAlertController
 
 @property (nonatomic, strong) UITableViewController *presentAlertToTableViewController;
+
+@property (nonatomic, weak) NSObject <QueryAlertControllerDelegate> *delegate;
+
+
 
 @end

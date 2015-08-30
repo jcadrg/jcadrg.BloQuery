@@ -10,11 +10,14 @@
 #import "User.h"
 #import "Query.h"
 
+@class User;
+@class Query;
+
 @interface NewAnswer : PFObject <PFSubclassing>
 
 @property (nonatomic, strong) User *username;
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSString *textAnswer;
-//@property (nonatomic, assign) NSInteger *likeCount;
+//@property (nonatomic, assign) NSInteger *upVote;
     
 @end
