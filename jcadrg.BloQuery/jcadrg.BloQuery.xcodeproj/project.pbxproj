@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		06976BF803F4FC526D5FFC5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 593F7BE5EF1198FC5AB85F2C /* libPods.a */; };
+		5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B29791B9104CE009B3D54 /* NewAnswer.m */; };
+		5D0B297D1B914FFE009B3D54 /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B297C1B914FFE009B3D54 /* QueryAlertController.m */; };
 		5D271F491B868E2D00D378FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F481B868E2D00D378FE /* main.m */; };
 		5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F4B1B868E2D00D378FE /* AppDelegate.m */; };
 		5D271F521B868E2D00D378FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F501B868E2D00D378FE /* Main.storyboard */; };
@@ -39,6 +41,10 @@
 /* Begin PBXFileReference section */
 		0C501E44ED2CBA373AE57628 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		593F7BE5EF1198FC5AB85F2C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D0B29781B9104CE009B3D54 /* NewAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnswer.h; sourceTree = "<group>"; };
+		5D0B29791B9104CE009B3D54 /* NewAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnswer.m; sourceTree = "<group>"; };
+		5D0B297B1B914FFE009B3D54 /* QueryAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryAlertController.h; sourceTree = "<group>"; };
+		5D0B297C1B914FFE009B3D54 /* QueryAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryAlertController.m; sourceTree = "<group>"; };
 		5D271F431B868E2D00D378FE /* jcadrg.BloQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcadrg.BloQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F471B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F481B868E2D00D378FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -129,10 +135,14 @@
 				5D271F4B1B868E2D00D378FE /* AppDelegate.m */,
 				5D7148351B8B15710053E9BA /* DataSource.h */,
 				5D7148361B8B15710053E9BA /* DataSource.m */,
+				5D0B29781B9104CE009B3D54 /* NewAnswer.h */,
+				5D0B29791B9104CE009B3D54 /* NewAnswer.m */,
 				5DD9C30D1B8990B300B507D7 /* Query.h */,
 				5DD9C30E1B8990B300B507D7 /* Query.m */,
 				5D68C4671B8FE12F00234233 /* Query+CellStyleUtilities.h */,
 				5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */,
+				5D0B297B1B914FFE009B3D54 /* QueryAlertController.h */,
+				5D0B297C1B914FFE009B3D54 /* QueryAlertController.m */,
 				5D7148381B8C0BE40053E9BA /* QueryTableViewCell.h */,
 				5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */,
 				5D7148321B8B14C60053E9BA /* QueryTableViewController.h */,
@@ -325,12 +335,14 @@
 				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
+				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
 				5D7148371B8B15710053E9BA /* DataSource.m in Sources */,
 				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
 				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,
 				5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */,
+				5D0B297D1B914FFE009B3D54 /* QueryAlertController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

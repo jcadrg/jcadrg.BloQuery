@@ -115,20 +115,72 @@
                 [queryArray addObject:object];
                 
             }
+            
+            
+            
+            [DataSource sharedInstance].queryElements = queryArray;
+            
+            if (completionhandler) {
+                completionhandler(nil);
+            }
+            
+        
         }else{
             NSLog(@"Error retrieving queries : %@", error);
         }
         
-        [DataSource sharedInstance].queryElements =queryArray;
+        /*[DataSource sharedInstance].queryElements =queryArray;
         
         if (completionhandler) {
             completionhandler(nil);
-        }
+        }*/
     }];
     
+}
+
+-(void) submitQuery:(NSString *)queryText withCompletionHandler:(submittedAnswerCompletionBlock)completionHandler{
     
+    if ([User currentUser]) {
+        Query *newQuestion = [Query object];
+        newQuestion.user = [User currentUser];
+        newQuestion.answers = @[];
+        newQuestion.query = queryText;
+        [newQuestion saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if(succeeded){
+                if (completionHandler) {
+                    completionHandler(nil);
+                }
+                
+            }else{
+                NSLog(@"Queery creation failed");
+            }
+            
+            
+        }];
+        
+    }
+}
+
+//Method copied from the Parse iOS tutorial
+
+-(void) retrieveParseConfig{
     
-    
+    NSLog(@"Getting the latest config...");
+    [PFConfig getConfigInBackgroundWithBlock:^(PFConfig *config, NSError *error) {
+        if (!error) {
+            NSLog(@"Yay! Config was fetched from the server.");
+        } else {
+            NSLog(@"Failed to fetch. Using Cached Config.");
+            config = [PFConfig currentConfig];
+        }
+        
+        self.configNewQuestion = config[@"New Question"];
+        if (!self.configNewQuestion) {
+            self.configNewQuestion = @"Ask your question!";
+        }
+
+    }];
 }
 
 @end

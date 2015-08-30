@@ -6,15 +6,24 @@ PODS:
   - ParseUI (1.1.5):
     - Bolts/Tasks (~> 1.2)
     - Parse (~> 1.8)
+  - RBBAnimation (0.4.0)
+  - SDCAlertView (2.5.2):
+    - RBBAnimation (~> 0.3)
+    - SDCAutoLayout (~> 2.0)
+  - SDCAutoLayout (2.0.3)
 
 DEPENDENCIES:
   - HexColors (~> 2.3)
   - ParseUI
+  - SDCAlertView
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
   ParseUI: 2c53621ed028ee793f5ab92a551b099689265525
+  RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
+  SDCAlertView: f9706c18f456ea87909f8f199704cd28e582ff27
+  SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
 
 COCOAPODS: 0.37.2

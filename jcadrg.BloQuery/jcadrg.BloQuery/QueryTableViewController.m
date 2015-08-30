@@ -15,6 +15,9 @@
 #import "QueryTableViewCell.h"
 #import "SingleQueryViewController.h"
 #import "HexColors.h"
+#import "SDCAlertController.h"
+#import "QueryAlertController.h"
+
 
 @interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate>
 
@@ -28,6 +31,8 @@
     //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor colorWithHexString:@"#dddddd"];
     [self.tableView registerClass:[QueryTableViewCell class] forCellReuseIdentifier:@"queryCell"];
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"+", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newQuestionButtonPressed)];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,8 +69,8 @@
         [self presentViewController:loginViewController animated:YES completion:nil];
 
     }else{
+        [[DataSource sharedInstance] retrieveParseConfig];
         [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
-            NSLog(@"Obtaining queries from source");
             [self.tableView reloadData];
         }];
     }
@@ -198,6 +203,15 @@
 
 
     [self.navigationController pushViewController:singleQueryVC animated:YES];
+}
+
+#pragma mark - New question button pressed
+
+-(void) newQuestionButtonPressed{
+    QueryAlertController *newQuestion = [QueryAlertController alertControllerWithTitle:NSLocalizedString(@"What is your question?", @"What is your question?") message:NSLocalizedString(@"Type a new question", @"Type a new question") preferredStyle:SDCAlertControllerStyleAlert];
+    
+    newQuestion.presentAlertToTableViewController = self;
+    [newQuestion presentWithCompletion:nil];
 }
 
 
