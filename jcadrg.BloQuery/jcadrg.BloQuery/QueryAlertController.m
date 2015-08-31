@@ -93,7 +93,7 @@
 }
 
 
-/*-(void) sendQueryTextToDataSource{            NO LONGER NEEDED SINCE I'M USING THE DELEGATE METHOD TO SEND THE QUERIES/ANSWERS TO THE DATA SOURCE!
+/*-(void) sendQueryTextToDataSource{            
     self.queryText = self.textField.text;
     [[DataSource sharedInstance] submitQuery:self.queryText withCompletionHandler:^(NSError *error){
         [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){

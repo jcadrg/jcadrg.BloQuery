@@ -19,6 +19,7 @@
 #import "QueryAlertController.h"
 
 
+
 @interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate, QueryAlertControllerDelegate>
 
 @end

@@ -10,13 +10,17 @@
 #import <QuartzCore/QuartzCore.h>
 #import "HexColors.h"
 #import "Query+CellStyleUtilities.h"
+#import "DataSource.h"
+#import "NewAnswerAlertController.h"
+#import "User.h"
 
 
-@interface SingleQueryViewController ()
+@interface SingleQueryViewController ()<NewAnswerAlertController>
 
 @property (nonatomic, strong) UILabel *queryLabel;
 @property (nonatomic, strong) UILabel *askerLabel;
 @property (nonatomic, strong) UILabel *answerCounter;
+@property (nonatomic, strong) NSString *askerUsername;
 
 
 @end
@@ -88,6 +92,12 @@ static NSParagraphStyle *paragraphStyle;
 
 -(void) viewDidLoad{
     [super viewDidLoad];
+    
+    NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
+    
+    [self setTitle:NSLocalizedString(userString, nil)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Answer", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newAnswerButtonPressed)];
 }
 
 -(id) init{
@@ -128,6 +138,8 @@ static NSParagraphStyle *paragraphStyle;
     self.askerLabel.attributedText = [self.singleQuery askerStringFont:askerFont paragraphStyle:paragraphStyle];
     self.answerCounter.attributedText = [self.singleQuery answerCounterFont:answerCounterFont paragraphStyle:paragraphStyle];
     
+    self.askerUsername = _singleQuery.user.username; //trying to get the username of the user that asked and stored it into a property
+    
 }
     
     
@@ -153,6 +165,29 @@ static NSParagraphStyle *paragraphStyle;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - new answer button pressed
+
+-(void) newAnswerButtonPressed{
+    
+    NewAnswerAlertController *newAnswer = [NewAnswerAlertController alertControllerWithTitle:NSLocalizedString(@"Answer the question!", nil) message:NSLocalizedString(@"Type your answer!", nil) preferredStyle:SDCAlertControllerStyleAlert];
+    
+    newAnswer.query = self.singleQuery;
+    
+    newAnswer.delegate = self;
+    
+    [newAnswer presentWithCompletion:nil];
+}
+
+#pragma mark - answer alert controller delegate
+
+-(void) newAnswerAlertController:(NewAnswerAlertController *)answerController didSubmitAnswer:(NSString *)answer{
+    [[DataSource sharedInstance] submitAnswersForQueries:self.singleQuery withText:answer withCompletionHandler:^(NSError *error){
+        [[DataSource sharedInstance] retrieveAnswersForQueries:self.singleQuery withCompletionHandler:^(NSError *error){
+            
+        }];
+    }];
 }
 
 /*
