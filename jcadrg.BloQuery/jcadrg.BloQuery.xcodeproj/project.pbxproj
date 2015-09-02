@@ -16,6 +16,7 @@
 		5D271F541B868E2D00D378FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F531B868E2D00D378FE /* Images.xcassets */; };
 		5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F551B868E2D00D378FE /* LaunchScreen.xib */; };
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
+		5D370DA81B951FBD00A6575A /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D370DA71B951FBD00A6575A /* AnswerTableViewCell.m */; };
 		5D4188F81B92F156000930C7 /* NewAnswerAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4188F71B92F156000930C7 /* NewAnswerAlertController.m */; };
 		5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4651B8D907C00234233 /* SingleQueryViewController.m */; };
 		5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */; };
@@ -57,6 +58,8 @@
 		5D271F5C1B868E2D00D378FE /* jcadrg.BloQueryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcadrg.BloQueryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F611B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jcadrg_BloQueryTests.m; sourceTree = "<group>"; };
+		5D370DA61B951FBD00A6575A /* AnswerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerTableViewCell.h; sourceTree = "<group>"; };
+		5D370DA71B951FBD00A6575A /* AnswerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
 		5D4188F61B92F156000930C7 /* NewAnswerAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnswerAlertController.h; sourceTree = "<group>"; };
 		5D4188F71B92F156000930C7 /* NewAnswerAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnswerAlertController.m; sourceTree = "<group>"; };
 		5D68C4641B8D907C00234233 /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 			children = (
 				5D271F4A1B868E2D00D378FE /* AppDelegate.h */,
 				5D271F4B1B868E2D00D378FE /* AppDelegate.m */,
+				5D370DA61B951FBD00A6575A /* AnswerTableViewCell.h */,
+				5D370DA71B951FBD00A6575A /* AnswerTableViewCell.m */,
 				5D7148351B8B15710053E9BA /* DataSource.h */,
 				5D7148361B8B15710053E9BA /* DataSource.m */,
 				5D0B29781B9104CE009B3D54 /* NewAnswer.h */,
@@ -337,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DE360441B880209002790CE /* User.m in Sources */,
+				5D370DA81B951FBD00A6575A /* AnswerTableViewCell.m in Sources */,
 				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,

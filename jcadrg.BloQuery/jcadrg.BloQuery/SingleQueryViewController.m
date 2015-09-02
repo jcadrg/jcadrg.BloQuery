@@ -13,14 +13,17 @@
 #import "DataSource.h"
 #import "NewAnswerAlertController.h"
 #import "User.h"
+#import "NewAnswer.h"
 
 
-@interface SingleQueryViewController ()<NewAnswerAlertController>
+@interface SingleQueryViewController ()<NewAnswerAlertController, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UILabel *queryLabel;
 @property (nonatomic, strong) UILabel *askerLabel;
 @property (nonatomic, strong) UILabel *answerCounter;
 @property (nonatomic, strong) NSString *askerUsername;
+
+@property (nonatomic, strong) UITableView *answersTableView;
 
 
 @end
@@ -93,11 +96,14 @@ static NSParagraphStyle *paragraphStyle;
 -(void) viewDidLoad{
     [super viewDidLoad];
     
-    NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
+    /*NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
     
-    [self setTitle:NSLocalizedString(userString, nil)];
+    [self setTitle:NSLocalizedString(userString, nil)];*/
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Answer", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newAnswerButtonPressed)];
+    
+    self.answersTableView.separatorColor = [UIColor colorWithHexString:@"#000000"];
+    [self.answersTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"answerCell"];
 }
 
 -(id) init{
@@ -105,6 +111,8 @@ static NSParagraphStyle *paragraphStyle;
     self = [super init];
     
     if (self) {
+        
+        self.view.backgroundColor = [UIColor whiteColor];
         
         self.queryLabel = [[UILabel alloc] init];
         self.queryLabel.numberOfLines =2;
@@ -119,7 +127,11 @@ static NSParagraphStyle *paragraphStyle;
         self.answerCounter.numberOfLines =1;
         self.answerCounter.textColor =answerCounterColor;
         
-        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
+        self.answersTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
+        self.answersTableView.delegate = self;
+        self.answersTableView.dataSource =self;
+        
+        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.answersTableView]) {
             [self.view addSubview:view];
         }
     }
@@ -139,6 +151,9 @@ static NSParagraphStyle *paragraphStyle;
     self.answerCounter.attributedText = [self.singleQuery answerCounterFont:answerCounterFont paragraphStyle:paragraphStyle];
     
     self.askerUsername = _singleQuery.user.username; //trying to get the username of the user that asked and stored it into a property
+    
+    NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
+    [self setTitle:NSLocalizedString(userString, nil)];
     
 }
     
@@ -160,6 +175,13 @@ static NSParagraphStyle *paragraphStyle;
     self.queryLabel.backgroundColor = [UIColor whiteColor];
     self.askerLabel.backgroundColor = [UIColor whiteColor];
     self.answerCounter.backgroundColor = [UIColor whiteColor];
+    
+    self.answersTableView.frame = CGRectMake(padding, CGRectGetMaxY(self.answerCounter.frame)+ padding, CGRectGetWidth(self.view.bounds)-(2*padding), CGRectGetHeight(self.view.bounds));
+    
+    if ([self.answersTableView respondsToSelector:@selector(layoutMargins)]) {
+        self.answersTableView.layoutMargins = UIEdgeInsetsZero;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,7 +193,7 @@ static NSParagraphStyle *paragraphStyle;
 
 -(void) newAnswerButtonPressed{
     
-    NewAnswerAlertController *newAnswer = [NewAnswerAlertController alertControllerWithTitle:NSLocalizedString(@"Answer the question!", nil) message:NSLocalizedString(@"Type your answer!", nil) preferredStyle:SDCAlertControllerStyleAlert];
+    NewAnswerAlertController *newAnswer = [NewAnswerAlertController alertControllerWithTitle:NSLocalizedString(@"Answer the question!", @"Answer the question!") message:NSLocalizedString(@"Type your answer!", @"Type your answer!") preferredStyle:SDCAlertControllerStyleAlert];
     
     newAnswer.query = self.singleQuery;
     
@@ -183,11 +205,42 @@ static NSParagraphStyle *paragraphStyle;
 #pragma mark - answer alert controller delegate
 
 -(void) newAnswerAlertController:(NewAnswerAlertController *)answerController didSubmitAnswer:(NSString *)answer{
+    
     [[DataSource sharedInstance] submitAnswersForQueries:self.singleQuery withText:answer withCompletionHandler:^(NSError *error){
-        [[DataSource sharedInstance] retrieveAnswersForQueries:self.singleQuery withCompletionHandler:^(NSError *error){
+        NSLog(@"answer saved");
+        
             
-        }];
+        
     }];
+}
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.singleQuery.answersList.count;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
+    
+    if (answerCell) {
+        answerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if ([answerCell respondsToSelector:@selector(layoutMargins)]) {
+            answerCell.layoutMargins = UIEdgeInsetsZero;
+        }
+        
+        UILabel *answerLabel = [[UILabel alloc] init];
+        NewAnswer *answer = self.singleQuery.answersList[indexPath.row];
+        answerLabel.text = answer.textAnswer;
+        [answerCell.contentView addSubview:answerLabel];
+        
+    }
+    
+    return answerCell;
 }
 
 /*

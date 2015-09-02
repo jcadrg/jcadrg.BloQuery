@@ -30,14 +30,13 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 -(void) retrieveParseConfig;
 
 -(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler;
+
+
+
 -(void) submitQuery:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
 
-
-
-
-
 -(void) submitAnswersForQueries:(Query *)query withText:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
--(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
+//-(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
 
 
 

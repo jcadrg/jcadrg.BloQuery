@@ -13,7 +13,7 @@
 @interface QueryAlertController()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) NSString *queryText;
+//@property (nonatomic, strong) NSString *queryText;
 
 @end
 
@@ -79,7 +79,7 @@
 }
 
 
--(BOOL) textFieldDismiss:(UITextField *) textField{
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
     //[self sendQueryTextToDataSource];
     

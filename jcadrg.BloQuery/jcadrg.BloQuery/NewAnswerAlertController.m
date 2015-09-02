@@ -9,10 +9,10 @@
 #import "NewAnswerAlertController.h"
 #import "DataSource.h"
 
-@interface NewAnswerAlertController ()<UITextViewDelegate>
+@interface NewAnswerAlertController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *answerTextField;
-@property (nonatomic, strong) NSString *answerText;
+//@property (nonatomic, strong) NSString *answerText;
 
 @end
 
@@ -78,7 +78,7 @@
     return YES;
 }
 
--(BOOL) textFieldDismiss:(UITextField *)textField{
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
     [self.delegate newAnswerAlertController:self didSubmitAnswer:self.answerTextField.text];
     [textField resignFirstResponder];
@@ -87,6 +87,9 @@
     return YES;
     
 }
+
+
+
 
 
 

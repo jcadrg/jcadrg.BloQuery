@@ -18,7 +18,7 @@
 
 @interface QueryAlertController : SDCAlertController
 
-@property (nonatomic, strong) UITableViewController *presentAlertToTableViewController;
+//@property (nonatomic, strong) UITableViewController *presentAlertToTableViewController;
 
 @property (nonatomic, weak) NSObject <QueryAlertControllerDelegate> *delegate;
 

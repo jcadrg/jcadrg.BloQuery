@@ -146,8 +146,12 @@
     if ([User currentUser]) {
         Query *newQuestion = [Query object];
         newQuestion.user = [User currentUser];
-        newQuestion.answers = @[];
         newQuestion.query = queryText;
+        
+        NSArray *answersList = @[];
+        [newQuestion setObject:answersList forKey:@"answersList"];
+        //newQuestion.answerList = answersList;
+        
         [newQuestion saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             if(succeeded){
@@ -170,23 +174,39 @@
 -(void) submitAnswersForQueries:(Query *)query withText:(NSString *)queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler{
     
     if ([User currentUser]) {
+        NSLog(@"Got to submit method!");
         NewAnswer *newAnswer = [NewAnswer object];
         
         newAnswer.username = [User currentUser];
-        newAnswer.query = query;
+
         newAnswer.textAnswer =  queryText;
+        //newAnswer.query = query;
+        [newAnswer setObject:query forKey:@"query"];
         
-        [newAnswer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            
+        NSLog(@"answer object : %@", newAnswer);
+        
+        NSMutableArray *answerListCopy = [query.answersList mutableCopy];
+        [answerListCopy addObject:newAnswer];
+        
+        [query setObject:[answerListCopy copy] forKey:@"answersList"];
+        
+        
+
+        
+        [query saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            NSLog(@"Request to save query with answer fired");
             if(succeeded){
-                if (completionHandler) {
-                    completionHandler(nil);
-                }
                 
+                /*if (completionHandler) {
+                    completionHandler(nil);
+                }*/
+                
+                NSLog(@"Answer creation succeeded");
+
             }else{
                 NSLog(@"Answer creation failed");
             }
-            
+        
             
         }];
         
@@ -194,12 +214,13 @@
     
 }
 
--(void) retrieveAnswersForQueries:(Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler{
+/*-(void) retrieveAnswersForQueries:(Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler{
     
     NSMutableArray *answersArray = [NSMutableArray array];
     
     PFQuery *answer =[PFQuery queryWithClassName:@"NewAnswer"];
-    [answer whereKey:@"Query" equalTo:query];
+    
+    [answer whereKey:@"query" equalTo:query];
     [answer findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if (!error){
             
@@ -210,6 +231,8 @@
                 [answersArray addObject:object];
                 
             }
+            
+            //query.answerList = answersArray;
 
             
             if (completionHandler) {
@@ -221,16 +244,11 @@
             NSLog(@"Error retrieving queries : %@", error);
         }
         
-        /*[DataSource sharedInstance].queryElements =queryArray;
-         
-         if (completionhandler) {
-         completionhandler(nil);
-         }*/
     }];
     
 }
 
-
+*/
 
 
 
