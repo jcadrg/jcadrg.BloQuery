@@ -25,6 +25,7 @@
 		5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */; };
 		5D71483D1B8C23990053E9BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D71483C1B8C23990053E9BA /* ViewController.m */; };
 		5D8F54C81B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */; };
+		5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54CA1B98E7F20098A6FF /* UserProfileViewController.m */; };
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
@@ -77,6 +78,8 @@
 		5D71483C1B8C23990053E9BA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5D8F54C61B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NewAnswer+NewAnswerUtilities.h"; sourceTree = "<group>"; };
 		5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NewAnswer+NewAnswerUtilities.m"; sourceTree = "<group>"; };
+		5D8F54C91B98E7F20098A6FF /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		5D8F54CA1B98E7F20098A6FF /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		5DD9C30D1B8990B300B507D7 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
 		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				5D71483C1B8C23990053E9BA /* ViewController.m */,
 				5DE360421B880209002790CE /* User.h */,
 				5DE360431B880209002790CE /* User.m */,
+				5D8F54C91B98E7F20098A6FF /* UserProfileViewController.h */,
+				5D8F54CA1B98E7F20098A6FF /* UserProfileViewController.m */,
 				5D271F501B868E2D00D378FE /* Main.storyboard */,
 				5D271F531B868E2D00D378FE /* Images.xcassets */,
 				5D271F551B868E2D00D378FE /* LaunchScreen.xib */,
@@ -351,6 +356,7 @@
 				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
+				5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */,
 				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
 				5D7148371B8B15710053E9BA /* DataSource.m in Sources */,
