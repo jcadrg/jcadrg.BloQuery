@@ -196,13 +196,7 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] init];
-    //singleQueryVC.singleQuery =[DataSource sharedInstance].queryElements[indexPath.row];
-    
-    [singleQueryVC setSingleQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
-    
-
-
+    SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
 }
 

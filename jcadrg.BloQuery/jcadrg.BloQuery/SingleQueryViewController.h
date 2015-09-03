@@ -13,6 +13,9 @@
 
 @interface SingleQueryViewController : UIViewController
 
-@property (nonatomic, strong) Query *singleQuery;
+//@property (nonatomic, strong) Query *singleQuery;
+
+
+-(id)initWithQuery:(Query *) singleQuery;
 
 @end

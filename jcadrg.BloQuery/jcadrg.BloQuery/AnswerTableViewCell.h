@@ -11,8 +11,15 @@
 
 @class NewAnswer;
 
+@protocol AnswerTableViewCellDelegate <NSObject>
+
+
+
+@end
+
 @interface AnswerTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) id<AnswerTableViewCellDelegate> delegate;
 @property (nonatomic, strong) NewAnswer *answer;
 
 @end
