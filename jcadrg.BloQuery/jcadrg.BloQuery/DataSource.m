@@ -197,9 +197,9 @@
             NSLog(@"Request to save query with answer fired");
             if(succeeded){
                 
-                /*if (completionHandler) {
+                if (completionHandler) {
                     completionHandler(nil);
-                }*/
+                }
                 
                 NSLog(@"Answer creation succeeded");
 
@@ -214,7 +214,7 @@
     
 }
 
-/*-(void) retrieveAnswersForQueries:(Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler{
+-(void) retrieveAnswersForQueries:(Query *)query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler{
     
     NSMutableArray *answersArray = [NSMutableArray array];
     
@@ -232,7 +232,7 @@
                 
             }
             
-            //query.answerList = answersArray;
+            query.answersList = answersArray;
 
             
             if (completionHandler) {
@@ -247,8 +247,6 @@
     }];
     
 }
-
-*/
 
 
 

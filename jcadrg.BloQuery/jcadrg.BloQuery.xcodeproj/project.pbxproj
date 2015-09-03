@@ -24,6 +24,7 @@
 		5D7148371B8B15710053E9BA /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148361B8B15710053E9BA /* DataSource.m */; };
 		5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */; };
 		5D71483D1B8C23990053E9BA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D71483C1B8C23990053E9BA /* ViewController.m */; };
+		5D8F54C81B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */; };
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
@@ -74,6 +75,8 @@
 		5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryTableViewCell.m; sourceTree = "<group>"; };
 		5D71483B1B8C23990053E9BA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		5D71483C1B8C23990053E9BA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5D8F54C61B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NewAnswer+NewAnswerUtilities.h"; sourceTree = "<group>"; };
+		5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NewAnswer+NewAnswerUtilities.m"; sourceTree = "<group>"; };
 		5DD9C30D1B8990B300B507D7 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
 		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				5D7148361B8B15710053E9BA /* DataSource.m */,
 				5D0B29781B9104CE009B3D54 /* NewAnswer.h */,
 				5D0B29791B9104CE009B3D54 /* NewAnswer.m */,
+				5D8F54C61B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.h */,
+				5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */,
 				5D4188F61B92F156000930C7 /* NewAnswerAlertController.h */,
 				5D4188F71B92F156000930C7 /* NewAnswerAlertController.m */,
 				5DD9C30D1B8990B300B507D7 /* Query.h */,
@@ -349,6 +354,7 @@
 				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
 				5D7148371B8B15710053E9BA /* DataSource.m in Sources */,
+				5D8F54C81B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m in Sources */,
 				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
 				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,

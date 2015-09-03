@@ -14,6 +14,7 @@
 #import "NewAnswerAlertController.h"
 #import "User.h"
 #import "NewAnswer.h"
+#import "AnswerTableViewCell.h"
 
 
 @interface SingleQueryViewController ()<NewAnswerAlertController, UITableViewDelegate, UITableViewDataSource>
@@ -24,6 +25,8 @@
 @property (nonatomic, strong) NSString *askerUsername;
 
 @property (nonatomic, strong) UITableView *answersTableView;
+
+@property (nonatomic, strong) Query *singleQuery;
 
 
 @end
@@ -106,11 +109,13 @@ static NSParagraphStyle *paragraphStyle;
     [self.answersTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"answerCell"];
 }
 
--(id) init{
+-(id) initWithQuery:(Query *)singleQuery{
     
     self = [super init];
     
     if (self) {
+        
+        [self retrieveAnswers:singleQuery];
         
         self.view.backgroundColor = [UIColor whiteColor];
         
@@ -131,15 +136,36 @@ static NSParagraphStyle *paragraphStyle;
         self.answersTableView.delegate = self;
         self.answersTableView.dataSource =self;
         
-        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.answersTableView]) {
+        [self setSingleQuery:singleQuery];
+        
+        /*for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.answersTableView]) {
             [self.view addSubview:view];
-        }
+        }*/
     }
     
     
     
     return self;
 }
+
+-(void) retrieveAnswers:(Query *) query{
+    [[DataSource sharedInstance] retrieveAnswersForQueries:query withCompletionHandler:^(NSError *error){
+        [self addSubviewsToView];
+    }];
+}
+
+
+-(void) addSubviewsToView{
+    
+    for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.answersTableView]) {
+        [self.view addSubview:view];
+    }
+    
+    [self.answersTableView registerClass:[AnswerTableViewCell class] forCellReuseIdentifier:@"answerCell"];
+    
+}
+
+
 
 
 -(void) setSingleQuery:(Query *)singleQuery{
@@ -209,7 +235,7 @@ static NSParagraphStyle *paragraphStyle;
     [[DataSource sharedInstance] submitAnswersForQueries:self.singleQuery withText:answer withCompletionHandler:^(NSError *error){
         NSLog(@"answer saved");
         
-            
+        [self.answersTableView reloadData];
         
     }];
 }
@@ -225,7 +251,7 @@ static NSParagraphStyle *paragraphStyle;
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
+   AnswerTableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
     
     if (answerCell) {
         answerCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -233,15 +259,24 @@ static NSParagraphStyle *paragraphStyle;
             answerCell.layoutMargins = UIEdgeInsetsZero;
         }
         
-        UILabel *answerLabel = [[UILabel alloc] init];
+        /*UILabel *answerLabel = [[UILabel alloc] init];
         NewAnswer *answer = self.singleQuery.answersList[indexPath.row];
         answerLabel.text = answer.textAnswer;
-        [answerCell.contentView addSubview:answerLabel];
+        [answerCell.contentView addSubview:answerLabel];*/
+        
+        answerCell.delegate = self.answersTableView;
+        answerCell.answer = self.singleQuery.answersList[indexPath.row];
+        
         
     }
     
     return answerCell;
 }
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+
 
 /*
 #pragma mark - Navigation

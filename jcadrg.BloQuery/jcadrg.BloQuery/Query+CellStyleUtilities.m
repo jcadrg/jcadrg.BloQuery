@@ -26,7 +26,8 @@
 }
 
 -(NSAttributedString *) answerCounterFont:(UIFont *)font paragraphStyle:(NSParagraphStyle *)paragraphStyle{
-    NSString *string = [NSString stringWithFormat:@"2 answers"];
+    //NSString *string = [NSString stringWithFormat:@"2 answers"];
+    NSString *string = [NSString stringWithFormat:@"%lu answers", (unsigned long)(self.answersList.count)];
     NSMutableAttributedString *answerCountString = [[NSMutableAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle}];
     
     return answerCountString;
