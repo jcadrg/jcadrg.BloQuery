@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
+#import <ParseUI/ParseUI.h>
 
 @interface UserProfileViewController : UIViewController
+
+@property User *user;
+
+-(id)initWithUser:(User *)user;
 
 @end

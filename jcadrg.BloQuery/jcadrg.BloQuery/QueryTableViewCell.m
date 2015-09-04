@@ -18,6 +18,9 @@
 @property (nonatomic, strong) UILabel *askerLabel;
 @property (nonatomic, strong) UILabel *answerCounter;
 
+@property (nonatomic, strong) UITapGestureRecognizer *queryTapGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *userTapGestureRecognizer;
+
 @end
 
 static UIFont *queryFont;
@@ -86,6 +89,16 @@ static NSParagraphStyle *paragraphStyle;
         self.answerCounter.numberOfLines =1;
         self.answerCounter.textColor = answerCounterColor;
         
+        self.queryTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(queryTapFired:)];
+        self.queryTapGestureRecognizer.delegate = self;
+        [self.queryLabel addGestureRecognizer:self.queryTapGestureRecognizer];
+        self.queryLabel.userInteractionEnabled = YES;
+        
+        self.userTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapFired:)];
+        self.userTapGestureRecognizer.delegate = self;
+        [self.askerLabel addGestureRecognizer:self.userTapGestureRecognizer];
+        self.askerLabel.userInteractionEnabled = YES;
+        
         for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
             [self.contentView addSubview:view];
         }
@@ -95,6 +108,8 @@ static NSParagraphStyle *paragraphStyle;
     }
     return self;
 }
+
+
 
 -(void) layoutSubviews{
     [super layoutSubviews];
@@ -116,6 +131,16 @@ static NSParagraphStyle *paragraphStyle;
     self.queryLabel.attributedText = [self.query queryStringFont:queryFont paragraphStyle:paragraphStyle ];
     self.askerLabel.attributedText = [self.query askerStringFont:askerFont paragraphStyle:paragraphStyle];
     self.answerCounter.attributedText = [self.query answerCounterFont:answerCounterFont paragraphStyle:paragraphStyle];
+}
+
+#pragma mark - Gesture tap methods
+
+-(void) queryTapFired:(UITapGestureRecognizer *) sender{
+    [self.delegate didTapQueryLabel:self];
+}
+
+-(void) userTapFired:(UITapGestureRecognizer *) sender{
+    [self.delegate didTapAnswerUserLabel:self];
 }
 
 

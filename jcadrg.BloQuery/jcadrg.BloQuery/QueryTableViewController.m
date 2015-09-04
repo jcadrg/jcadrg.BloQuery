@@ -17,6 +17,8 @@
 #import "HexColors.h"
 #import "SDCAlertController.h"
 #import "QueryAlertController.h"
+#import "UserProfileViewController.h"
+
 
 
 
@@ -174,6 +176,8 @@
         queryLabel.text = newQuery.query;
         [cell.contentView addSubview:queryLabel];
     }*/
+    
+    
     if (queryCell) {
         queryCell.selectionStyle = UITableViewCellSelectionStyleNone;
         if ([queryCell respondsToSelector:@selector(layoutMargins)]) {
@@ -194,11 +198,13 @@
     return 100;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+/*-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
-}
+    
+}*/
+
 
 #pragma mark - New question button pressed
 
@@ -221,6 +227,47 @@
         }];
     }];
 }
+
+
+
+
+/*-(void) profileImage{
+    if ([User currentUser]) {
+        User *user = [User currentUser];
+        
+        UIImage *image = [UIImage imageNamed:@"11.png"];
+        NSData *imageData = UIImagePNGRepresentation(image);
+        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+        user.profileImage = imageFile;
+        
+        NSString *profileDescription = @"Hi!! it's me!";
+        user.userProfileDescription =profileDescription;
+        
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded) {
+                NSLog(@"Image creation succesful!");
+            }else{
+                NSLog(@"Image creation failed!");
+            }
+        }];
+        
+    }
+}*/
+
+#pragma mark - Cell tap events
+
+-(void) didTapAnswerUserLabel:(QueryTableViewCell *)queryCell{
+    UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:queryCell.query.user];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+-(void) didTapQueryLabel:(QueryTableViewCell *)queryCell{
+    SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:queryCell.query];
+    [self.navigationController pushViewController:singleQueryVC animated:YES];
+}
+
+
+
 
 
 /*

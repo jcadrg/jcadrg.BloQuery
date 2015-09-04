@@ -280,6 +280,12 @@
     }];
 }
 
+#pragma mark - Image request
+
+-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
+    
+}
+
 @end
 
 

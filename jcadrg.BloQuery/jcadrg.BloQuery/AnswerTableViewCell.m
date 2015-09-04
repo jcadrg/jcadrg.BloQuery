@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UILabel *answerLabel;
 @property (nonatomic, strong) UILabel *answerUserLabel;
 
+@property (nonatomic, strong) UITapGestureRecognizer *userAnswerTapGestureRecognizer;
+
 @end
 
 static UIFont *answerFont;
@@ -60,6 +62,11 @@ static NSParagraphStyle *paragraphStyle;
         self.answerUserLabel.numberOfLines =1;
         self.answerUserLabel.textColor = answerUserColor;
         
+        self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
+        self.userAnswerTapGestureRecognizer.delegate = self;
+        [self.answerUserLabel addGestureRecognizer:self.userAnswerTapGestureRecognizer];
+        self.answerUserLabel.userInteractionEnabled = YES;
+        
         for (UIView *view in @[self.answerLabel, self.answerUserLabel]) {
             [self.contentView addSubview:view];
         }
@@ -85,6 +92,11 @@ static NSParagraphStyle *paragraphStyle;
     
     self.answerUserLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), answerUserHeight);
     
+}
+
+-(void) answerUserTapFired:(UIGestureRecognizer *) sender{
+    [self.delegate didTapUserAnswerLabel:self];
+    NSLog(@"cell tapped!");
 }
 
 

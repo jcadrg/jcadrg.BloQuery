@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Query.h"
 
+@class Query;
+@class QueryTableViewCell;
+
+
 
 
 @protocol QueryTableViewCellDelegate <NSObject>
 
-//No methods for now
+-(void) didTapQueryLabel:(QueryTableViewCell *) queryCell;
+-(void) didTapAnswerUserLabel:(QueryTableViewCell *) queryCell;
 
 @end
 

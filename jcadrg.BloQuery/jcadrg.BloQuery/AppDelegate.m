@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 #import "QueryTableViewController.h"
 #import "DataSource.h"
+#import "UserProfileViewController.h"
+#import "TabBarController.h"
 
 @interface AppDelegate ()
 
@@ -32,12 +34,31 @@
     
     [DataSource sharedInstance];
     
+    TabBarController *tabBarController= [[TabBarController alloc] init];
     QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
+
+
+    
     UINavigationController *navVC = [[UINavigationController alloc] init];
     [navVC setViewControllers:@[queryTableVC] animated:YES];
     
+    UserProfileViewController *profileVC = [[UserProfileViewController alloc] init];
+    [profileVC setTitle:@"User Profile"];
+
     
-    self.window.rootViewController = navVC;
+    if ([User currentUser]) {
+        profileVC.user =[User currentUser];
+    }
+    
+    tabBarController.viewControllers = [NSArray arrayWithObjects:navVC, profileVC, nil];
+
+    
+ 
+    
+
+    
+    
+    self.window.rootViewController = tabBarController;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

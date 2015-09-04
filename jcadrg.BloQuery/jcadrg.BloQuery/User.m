@@ -14,7 +14,8 @@
 //@dynamic test;
 @dynamic description;
 @dynamic profileImageURL;
-
+@dynamic profileImage;
+@dynamic userProfileDescription;
 
 +(void) load{
     [User registerSubclass];

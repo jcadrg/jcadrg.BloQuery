@@ -15,9 +15,10 @@
 #import "User.h"
 #import "NewAnswer.h"
 #import "AnswerTableViewCell.h"
+#import "UserProfileViewController.h"
 
 
-@interface SingleQueryViewController ()<NewAnswerAlertController, UITableViewDelegate, UITableViewDataSource>
+@interface SingleQueryViewController ()<NewAnswerAlertController, UITableViewDelegate, UITableViewDataSource, AnswerTableViewCellDelegate>
 
 @property (nonatomic, strong) UILabel *queryLabel;
 @property (nonatomic, strong) UILabel *askerLabel;
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) UITableView *answersTableView;
 
 @property (nonatomic, strong) Query *singleQuery;
+
+@property (nonatomic, strong) UITapGestureRecognizer *queryUserTapGestureRecognizer;
 
 
 @end
@@ -178,6 +181,10 @@ static NSParagraphStyle *paragraphStyle;
     
     self.askerUsername = _singleQuery.user.username; //trying to get the username of the user that asked and stored it into a property
     
+    self.queryUserTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(queryUserTapFired:)];
+    [self.askerLabel addGestureRecognizer:self.queryUserTapGestureRecognizer];
+    self.askerLabel.userInteractionEnabled = YES;
+    
     NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
     [self setTitle:NSLocalizedString(userString, nil)];
     
@@ -264,7 +271,7 @@ static NSParagraphStyle *paragraphStyle;
         answerLabel.text = answer.textAnswer;
         [answerCell.contentView addSubview:answerLabel];*/
         
-        answerCell.delegate = self.answersTableView;
+        answerCell.delegate = self;
         answerCell.answer = self.singleQuery.answersList[indexPath.row];
         
         
@@ -273,8 +280,25 @@ static NSParagraphStyle *paragraphStyle;
     return answerCell;
 }
 
+
+-(void) didTapUserAnswerLabel:(AnswerTableViewCell *)answerCell{
+    
+    NSLog(@"Got here!");
+    UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:answerCell.answer.username];
+    [self.navigationController pushViewController:profileVC animated:YES];
+
+}
+
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
+}
+
+
+#pragma mark - Tap fired method
+
+-(void)queryUserTapFired:(UITapGestureRecognizer *) sender{
+    UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:self.singleQuery.user];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 

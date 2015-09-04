@@ -14,5 +14,8 @@
 @property (nonatomic,strong) NSString *profileImageURL;
 @property (nonatomic, strong) NSString *description;
 
+@property (nonatomic, strong) PFFile *profileImage; //This is just a placeholder property, like the testing images in blocstagram
+@property (nonatomic, strong) NSString *userProfileDescription;
+
 
 @end

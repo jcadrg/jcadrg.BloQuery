@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "NewAnswer.h"
 
+
 @class NewAnswer;
+@class AnswerTableViewCell;
 
 @protocol AnswerTableViewCellDelegate <NSObject>
 
-
+-(void) didTapUserAnswerLabel:(AnswerTableViewCell *)answerCell;
 
 @end
 

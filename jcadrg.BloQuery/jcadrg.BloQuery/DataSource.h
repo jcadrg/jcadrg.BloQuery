@@ -10,6 +10,7 @@
 #import "Query.h"
 
 @class Query;
+@class User;
 
 @interface DataSource : NSObject
 
@@ -18,6 +19,8 @@ typedef void (^submittedQueryCompletionBlock)(NSError *error);
 
 typedef void (^requestedAnswerCompletionBlock)(NSError *error);
 typedef void (^submittedAnswerCompletionBlock)(NSError *error);
+
+typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
 
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
@@ -38,6 +41,9 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 -(void) submitAnswersForQueries:(Query *)query withText:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
 
 -(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
+
+//User profile method
+-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
 
 
 
