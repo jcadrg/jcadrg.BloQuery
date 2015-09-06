@@ -29,4 +29,11 @@
     return answerUserString;
 
 }
+
+-(NSAttributedString *) upVoteCounterWithFont:(UIFont *)font paragraphStyle:(NSParagraphStyle *)paragraphStyle{
+    NSString *string = [NSString stringWithFormat:@"%lu upVotes", (unsigned long)(self.upVoteCounter)];
+    NSMutableAttributedString *upVoteCountString = [[NSMutableAttributedString alloc] initWithString:string attributes:@{NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraphStyle}];
+    
+    return upVoteCountString;
+}
 @end

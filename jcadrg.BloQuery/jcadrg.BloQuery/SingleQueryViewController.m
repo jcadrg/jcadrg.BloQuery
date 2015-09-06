@@ -209,7 +209,7 @@ static NSParagraphStyle *paragraphStyle;
     self.askerLabel.backgroundColor = [UIColor whiteColor];
     self.answerCounter.backgroundColor = [UIColor whiteColor];
     
-    self.answersTableView.frame = CGRectMake(padding, CGRectGetMaxY(self.answerCounter.frame)+ padding, CGRectGetWidth(self.view.bounds)-(2*padding), CGRectGetHeight(self.view.bounds));
+    self.answersTableView.frame = CGRectMake(padding, CGRectGetMaxY(self.answerCounter.frame)+ padding, CGRectGetWidth(self.view.bounds)-(2*padding), CGRectGetHeight(self.view.bounds)- CGRectGetMaxY(self.answerCounter.frame)-(2*padding));
     
     if ([self.answersTableView respondsToSelector:@selector(layoutMargins)]) {
         self.answersTableView.layoutMargins = UIEdgeInsetsZero;
@@ -243,6 +243,9 @@ static NSParagraphStyle *paragraphStyle;
         NSLog(@"answer saved");
         
         [self.answersTableView reloadData];
+        
+        _singleQuery = self.singleQuery;
+        [self setSingleQuery:_singleQuery];
         
     }];
 }
@@ -301,6 +304,11 @@ static NSParagraphStyle *paragraphStyle;
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 
+-(void) didTapupVoteButton:(AnswerTableViewCell *)answerCell{
+    [[DataSource sharedInstance] updateupVoteCounter:answerCell.answer withCompletionHandler:^(NSError *error){
+        [self.answersTableView reloadData];
+    }];
+}
 
 /*
 #pragma mark - Navigation

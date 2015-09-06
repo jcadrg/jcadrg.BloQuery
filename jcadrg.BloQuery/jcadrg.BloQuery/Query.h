@@ -14,7 +14,9 @@
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSString *query;
 
-@property (nonatomic, strong) NSArray *answersList;
+@property (nonatomic, strong) NSMutableArray *answersList;
+@property (nonatomic, assign) NSUInteger *answerCount;
+
 
 
 

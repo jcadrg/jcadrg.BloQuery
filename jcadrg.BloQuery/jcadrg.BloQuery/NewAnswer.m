@@ -14,7 +14,10 @@
 @dynamic username;
 @dynamic query;
 @dynamic textAnswer;
-//@dynamic likeCount;
+@dynamic userupVoteList;
+@dynamic upVoteCounter;
+@dynamic state;
+//@dynamic upVoteCount;
 
 +(void) load{
     [self registerSubclass];

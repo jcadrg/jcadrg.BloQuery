@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) UILabel *answerLabel;
 @property (nonatomic, strong) UILabel *answerUserLabel;
+@property (nonatomic, strong) UILabel *upVoteCountLabel;
+@property (nonatomic, strong) UIButton *upVoteButton;
 
 @property (nonatomic, strong) UITapGestureRecognizer *userAnswerTapGestureRecognizer;
 
@@ -22,9 +24,11 @@
 
 static UIFont *answerFont;
 static UIFont *answerUserFont;
+static UIFont *upVoteCountFont;
 
 static UIColor *answerColor;
 static UIColor *answerUserColor;
+static UIColor *upVoteCountColor;
 
 static NSParagraphStyle *paragraphStyle;
 
@@ -37,6 +41,9 @@ static NSParagraphStyle *paragraphStyle;
     
     answerUserFont = [UIFont fontWithName:@"Georgia" size:12];
     answerUserColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
+    
+    upVoteCountFont = [UIFont fontWithName:@"Georgia" size:10];
+    upVoteCountColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
     NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     mutableParagraphStyle.headIndent = 10.0;
@@ -62,16 +69,28 @@ static NSParagraphStyle *paragraphStyle;
         self.answerUserLabel.numberOfLines =1;
         self.answerUserLabel.textColor = answerUserColor;
         
+        self.upVoteCountLabel = [[UILabel alloc] init];
+        self.upVoteCountLabel.numberOfLines = 1;
+        self.upVoteCountLabel.textColor = upVoteCountColor;
+        
+        self.upVoteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.upVoteButton setTitle:@"upVote" forState:UIControlStateNormal];
+        [self.upVoteButton addTarget:self action:@selector(upVotePressed:) forControlEvents:UIControlEventTouchUpInside];
+        
         self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
         self.userAnswerTapGestureRecognizer.delegate = self;
         [self.answerUserLabel addGestureRecognizer:self.userAnswerTapGestureRecognizer];
         self.answerUserLabel.userInteractionEnabled = YES;
         
-        for (UIView *view in @[self.answerLabel, self.answerUserLabel]) {
+        for (UIView *view in @[self.answerLabel, self.answerUserLabel, self.upVoteCountLabel, self.upVoteButton]) {
             [self.contentView addSubview:view];
         }
     }
     return self;
+}
+
+-(void) upVotePressed:(UIButton *) sender{
+    [self.delegate didTapupVoteButton:self];
 }
 
 -(void) setAnswer:(NewAnswer *)answer{
@@ -79,6 +98,7 @@ static NSParagraphStyle *paragraphStyle;
     
     self.answerLabel.attributedText = [self.answer answerTextWithFont:answerFont paragraphStyle:paragraphStyle];
     self.answerUserLabel.attributedText = [self.answer answerUserWithFont:answerUserFont paragraphStyle:paragraphStyle];
+    self.upVoteCountLabel.attributedText = [self.answer upVoteCounterWithFont:upVoteCountFont paragraphStyle:paragraphStyle];
 }
 
 -(void) layoutSubviews{
@@ -87,10 +107,12 @@ static NSParagraphStyle *paragraphStyle;
     CGFloat padding = 10;
     CGFloat answerHeight = 40;
     CGFloat answerUserHeight = 10;
+    CGFloat upVoteCountHeight =10;
     
     self.answerLabel.frame = CGRectMake(padding, padding, CGRectGetWidth(self.contentView.bounds)-(2 * padding), answerHeight);
     
     self.answerUserLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), answerUserHeight);
+    self.upVoteCountLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerUserLabel.frame) + padding, CGRectGetWidth(self.bounds) - (2 * padding), upVoteCountHeight);
     
 }
 

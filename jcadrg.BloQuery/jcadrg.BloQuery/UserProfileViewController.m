@@ -9,11 +9,13 @@
 #import "UserProfileViewController.h"
 #import "User.h"
 
-@interface  UserProfileViewController()
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) PFImageView *userProfileImageView;
 @property (nonatomic, strong) UILabel *userProfileDescription;
+
+@property UIButton *logoutButton;
 
 @end
 
@@ -22,8 +24,12 @@
 
 -(void) viewDidLoad{
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    [self.logoutButton addTarget:self action:@selector(logoutTapFired:) forControlEvents:UIControlEventTouchUpInside];
     
     self.userProfileImageView = [[PFImageView alloc] init];
     self.userProfileImageView.image =[UIImage imageNamed:@"11.png"];
@@ -34,7 +40,7 @@
     self.userProfileDescription.text = self.user.userProfileDescription;
     
     
-    for (UIView *view in @[self.userProfileImageView, self.userProfileDescription]) {
+    for (UIView *view in @[self.userProfileImageView, self.userProfileDescription, self.logoutButton]) {
         [self.view addSubview:view];
     }
     
@@ -63,10 +69,15 @@
 -(void) viewDidAppear:(BOOL)animated{
     self.userProfileImageView.frame = CGRectMake(0, 40, 400, 500);
     self.userProfileDescription.frame = CGRectMake(0, 540, 400, 20);
+    self.logoutButton.frame = CGRectMake(0, 0, 100, 50);
     
     
 }
 
+-(void) logoutTapFired: (id) sender{
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:self];
+}
 
 
 @end

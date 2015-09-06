@@ -16,6 +16,7 @@
 @protocol AnswerTableViewCellDelegate <NSObject>
 
 -(void) didTapUserAnswerLabel:(AnswerTableViewCell *)answerCell;
+-(void) didTapupVoteButton:(AnswerTableViewCell *)answerCell;
 
 @end
 

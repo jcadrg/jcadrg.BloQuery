@@ -12,6 +12,7 @@
 
 -(NSAttributedString *) answerTextWithFont:(UIFont *)font paragraphStyle:(NSParagraphStyle *) paragraphStyle;
 -(NSAttributedString *) answerUserWithFont:(UIFont *) font paragraphStyle:(NSParagraphStyle *) paragraphStyle;
+-(NSAttributedString *) upVoteCounterWithFont:(UIFont *) font paragraphStyle:(NSParagraphStyle *) paragraphStyle;
 
 
 

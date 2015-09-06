@@ -58,7 +58,7 @@ PF_ASSUME_NONNULL_BEGIN
  The following types of predicates are NOT supported:
 
  - Aggregate operations, such as `ANY`, `SOME`, `ALL`, or `NONE`.
- - Regular expressions, such as `LIKE`, `MATCHES`, `CONTAINS`, or `ENDSWITH`.
+ - Regular expressions, such as `like`, `MATCHES`, `CONTAINS`, or `ENDSWITH`.
  - Predicates comparing one key to another.
  - Complex predicates with many ORed clauses.
 

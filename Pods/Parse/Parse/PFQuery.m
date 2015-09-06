@@ -462,16 +462,16 @@ static void PFQueryAssertValidOrderingClauseClass(id object) {
             if (left.expressionType == NSKeyPathExpressionType &&
                 right.expressionType == NSConstantValueExpressionType) {
                 if ([right.constantValue isKindOfClass:[PFQuery class]]) {
-                    // Like "value IN subquery
+                    // like "value IN subquery
                     [self whereKey:left.keyPath matchesQuery:right.constantValue];
                 } else {
-                    // Like "value IN %@", @{@1, @2, @3, @4}
+                    // like "value IN %@", @{@1, @2, @3, @4}
                     [self whereKey:left.keyPath containedIn:right.constantValue];
                 }
             } else if (left.expressionType == NSKeyPathExpressionType &&
                        right.expressionType == NSAggregateExpressionType &&
                        [right.constantValue isKindOfClass:[NSArray class]]) {
-                // Like "value IN {1, 2, 3, 4}"
+                // like "value IN {1, 2, 3, 4}"
                 NSArray *constants = right.constantValue;
                 NSMutableArray *values = [NSMutableArray arrayWithCapacity:constants.count];
                 for (NSExpression *expression in constants) {
@@ -480,7 +480,7 @@ static void PFQueryAssertValidOrderingClauseClass(id object) {
                 [self whereKey:left.keyPath containedIn:values];
             } else if (right.expressionType == NSEvaluatedObjectExpressionType &&
                        left.expressionType == NSKeyPathExpressionType) {
-                // Like "value IN SELF"
+                // like "value IN SELF"
                 [self whereKeyExists:left.keyPath];
             } else {
                 [NSException raise:NSInternalInconsistencyException
@@ -497,16 +497,16 @@ static void PFQueryAssertValidOrderingClauseClass(id object) {
             if (right.expressionType == NSConstantValueExpressionType &&
                 left.expressionType == NSKeyPathExpressionType) {
                 if ([right.constantValue isKindOfClass:[PFQuery class]]) {
-                    // Like "NOT (value IN subquery)"
+                    // like "NOT (value IN subquery)"
                     [self whereKey:left.keyPath doesNotMatchQuery:right.constantValue];
                 } else {
-                    // Like "NOT (value in %@)", @{@1, @2, @3}
+                    // like "NOT (value in %@)", @{@1, @2, @3}
                     [self whereKey:left.keyPath notContainedIn:right.constantValue];
                 }
             } else if (left.expressionType == NSKeyPathExpressionType &&
                        right.expressionType == NSAggregateExpressionType &&
                        [right.constantValue isKindOfClass:[NSArray class]]) {
-                // Like "NOT (value IN {1, 2, 3, 4})"
+                // like "NOT (value IN {1, 2, 3, 4})"
                 NSArray *constants = right.constantValue;
                 NSMutableArray *values = [NSMutableArray arrayWithCapacity:constants.count];
                 for (NSExpression *expression in constants) {
@@ -515,7 +515,7 @@ static void PFQueryAssertValidOrderingClauseClass(id object) {
                 [self whereKey:left.keyPath notContainedIn:values];
             } else if (right.expressionType == NSEvaluatedObjectExpressionType &&
                        left.expressionType == NSKeyPathExpressionType) {
-                // Like "NOT (value IN SELF)"
+                // like "NOT (value IN SELF)"
                 [self whereKeyDoesNotExist:left.keyPath];
             } else {
                 [NSException raise:NSInternalInconsistencyException
@@ -548,7 +548,7 @@ static void PFQueryAssertValidOrderingClauseClass(id object) {
         }
         case NSLikePredicateOperatorType: {
             [NSException raise:NSInternalInconsistencyException
-                        format:@"LIKE is not supported by PFQuery."];
+                        format:@"like is not supported by PFQuery."];
         }
         default: {
             [NSException raise:NSInternalInconsistencyException

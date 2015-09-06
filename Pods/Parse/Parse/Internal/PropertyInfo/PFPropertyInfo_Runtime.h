@@ -18,7 +18,7 @@
  fail for structs, as well as 64 bit numbers on 32 bit platforms. Because of this, we need a solution to allow us to
  safely set instance variable values whose sizes may be significantly more than a pointer.
  
- @note Like most Objective-C runtime methods, this WILL fail if you try and set a bitfield, so please don't do that.
+ @note like most Objective-C runtime methods, this WILL fail if you try and set a bitfield, so please don't do that.
 
  @param obj             The object to operate on.
  @param ivar            The ivar to set the new value for.
@@ -34,7 +34,7 @@ extern void object_setIvarValue_safe(__unsafe_unretained id obj, Ivar ivar, void
  fail for structs, as well as 64 bit numbers on 32 bit platforms. Because of this, we need a solution to allow us to
  safely get instance variable values whose sizes may be significantly more than a pointer.
 
- @note Like most Objective-C runtime methods, this WILL fail if you try and set a bitfield, so please don't do that.
+ @note like most Objective-C runtime methods, this WILL fail if you try and set a bitfield, so please don't do that.
 
  @param obj             The object to operate on.
  @param ivar            The ivar to get the value from.

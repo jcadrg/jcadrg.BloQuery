@@ -30,49 +30,15 @@
 -(instancetype) init{
     self = [super init];
     
-    /*if (self) {
-        if ([User currentUser]) {
-            [self saveQueryToParse];
-        }
+    if (self) {
         
     }
-    
-    [self retrieveQueryFromParse];*/
     
     
     
     return self;
 }
 
-/*-(void) saveQueryToParse{
-    
-    if ([User currentUser]) {
-        Query *test = [Query object];
-        test.user = [User currentUser]; //I used object instead of currentUser
-        test.answers = @[];
-        test.query = @"Can anyone see this question?";
-        [test saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"Query creation was a success!");
-            } else {
-                NSLog(@"Query creation failed!");
-            }
-        }];
-        
-        Query *test2 = [Query object];
-        test2.user = [User currentUser];
-        test2.answers = @[];
-        test2.query = @"See this question too?";
-        [test2 saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"Query creation was a success!");
-            } else {
-                NSLog(@"Query creation failed!");
-            }
-        }];
-        
-    }
-}*/
 
 /*-(void) retrieveQueryFromParse{
     
@@ -108,6 +74,9 @@
     NSMutableArray *queryArray = [NSMutableArray array];
     
     PFQuery *query =[PFQuery queryWithClassName:@"Query"];
+    
+    [query includeKey:@"user"];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if (!error){
             
@@ -118,8 +87,6 @@
                 [queryArray insertObject:object atIndex:0];
                 
             }
-            
-            
             
             [DataSource sharedInstance].queryElements = queryArray;
             
@@ -176,22 +143,26 @@
     if ([User currentUser]) {
         NSLog(@"Got to submit method!");
         NewAnswer *newAnswer = [NewAnswer object];
-        
         newAnswer.username = [User currentUser];
+        /*newAnswer.userupVoteList = @[];
+        newAnswer.state = NO;*/
+        
+        newAnswer.upVoteCounter = 0;
 
         newAnswer.textAnswer =  queryText;
         //newAnswer.query = query;
+        
         [newAnswer setObject:query forKey:@"query"];
         
         NSLog(@"answer object : %@", newAnswer);
         
-        NSMutableArray *answerListCopy = [query.answersList mutableCopy];
+        /*NSMutableArray *answerListCopy = [query.answersList mutableCopy];
         [answerListCopy addObject:newAnswer];
+        [query setObject:[answerListCopy copy] forKey:@"answersList"];*/
         
-        [query setObject:[answerListCopy copy] forKey:@"answersList"];
-        
-        
-
+        [query.answersList addObject:newAnswer];
+        //query.answerCount += 1;
+  
         
         [query saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             NSLog(@"Request to save query with answer fired");
@@ -282,8 +253,28 @@
 
 #pragma mark - Image request
 
--(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
+/*-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
     
+}*/
+
+-(void) updateupVoteCounter:(NewAnswer *)answer withCompletionHandler:(upVoteCounterChangeCompletionBlock)completionHandler{
+    
+    if ([User currentUser]) {
+        NSMutableArray *upVoteUserArray = [answer.userupVoteList mutableCopy];
+        [upVoteUserArray addObject:[User currentUser]];
+        answer.userupVoteList = upVoteUserArray;
+        answer.upVoteCounter +=1;
+        [answer saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+            if (succeded) {
+                if (completionHandler) {
+                    completionHandler(nil);
+                    
+                }else{
+                    NSLog(@"Could not update upVote count!");
+                }
+            }
+        }];
+    }
 }
 
 @end

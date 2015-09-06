@@ -305,7 +305,7 @@
 
 /*!
  Returns a version of the given predicate converted to disjunctive normal form (DNF).
- Unlike normalizeToDNF:error:, this method only accepts compound predicates, and assumes that
+ UnLike normalizeToDNF:error:, this method only accepts compound predicates, and assumes that
  removeNegation:error: has already been applied to the given predicate.
  */
 + (NSPredicate *)asOrOfAnds:(NSCompoundPredicate *)compound {

@@ -11,6 +11,7 @@
 
 @class Query;
 @class User;
+@class NewAnswer;
 
 @interface DataSource : NSObject
 
@@ -20,7 +21,9 @@ typedef void (^submittedQueryCompletionBlock)(NSError *error);
 typedef void (^requestedAnswerCompletionBlock)(NSError *error);
 typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 
-typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
+typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
+
+//typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
 
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
@@ -34,16 +37,17 @@ typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
 
 //Query methods
 -(void) retrieveQueryWithCompletionHandler:(requestedQueryCompletionBlock) completionhandler;
-
 -(void) submitQuery:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
 
 //Answer methods
 -(void) submitAnswersForQueries:(Query *)query withText:(NSString *) queryText withCompletionHandler:(submittedQueryCompletionBlock)completionHandler;
-
 -(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
 
 //User profile method
--(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
+//-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
+
+//Update count of upVotes
+-(void) updateupVoteCounter:(NewAnswer *) answer withCompletionHandler:(upVoteCounterChangeCompletionBlock) completionHandler;
 
 
 

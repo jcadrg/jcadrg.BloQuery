@@ -22,7 +22,7 @@
 
 
 
-@interface QueryTableViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, QueryTableViewCellDelegate, QueryAlertControllerDelegate>
+@interface QueryTableViewController () <QueryTableViewCellDelegate, QueryAlertControllerDelegate>
 
 @end
 
@@ -31,17 +31,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self setTitle:NSLocalizedString(@"News Feed", nil)];
+    
     self.tableView.separatorColor = [UIColor colorWithHexString:@"#dddddd"];
     [self.tableView registerClass:[QueryTableViewCell class] forCellReuseIdentifier:@"queryCell"];
     
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"+", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newQuestionButtonPressed)];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
 }
 
 -(void) viewWillLayoutSubviews{
@@ -55,95 +56,21 @@
     }*/
 }
 
--(void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    if (![User currentUser]) {
+-(void) viewWillAppear:(BOOL)animated{
+    NSLog(@"Requesting queries!");
+    [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
+        [self.tableView reloadData];
+    }];
+}
 
- 
-        PFLogInViewController *loginViewController = [[PFLogInViewController alloc] init];
-        [loginViewController setDelegate:self];
-        
-        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        [signUpViewController setDelegate:self];
-        
-        [loginViewController setSignUpController:signUpViewController];
-        
-        [self presentViewController:loginViewController animated:YES completion:nil];
-
-    }else{
-        [[DataSource sharedInstance] retrieveParseConfig];
-        [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
-            [self.tableView reloadData];
-        }];
-    }
-    
+-(void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark  - PFSignUpViewController delegate
-
--(BOOL) signUpViewController:(PFSignUpViewController * __nonnull)signUpController shouldBeginSignUp:(NSDictionary * __nonnull)info{
-    
-    BOOL fieldsFilled = YES;
-    
-    for (id key in info) {
-        NSString *field = [info objectForKey:key];
-        if (!field || field.length == 0) {
-            fieldsFilled = NO;
-            break;
-        }
-    }
-    
-    if (!fieldsFilled) {
-        [[[UIAlertView alloc] initWithTitle:@"Field Missing" message:@"Make sure to fill all required fields!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-    
-    return fieldsFilled;
-    
-}
-
--(void) signUpViewController:(PFSignUpViewController * __nonnull)signUpController didSignUpUser:(PFUser * __nonnull)user{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void) signUpViewController:(PFSignUpViewController * __nonnull)signUpController didFailToSignUpWithError:(nullable NSError *)error{
-    NSLog(@"Signup failed: %@", error);
-}
-
--(void) signUpViewControllerDidCancelSignUp:(PFSignUpViewController * __nonnull)signUpController{
-    NSLog(@"Signup dismissed");
-}
-
-#pragma mark - PFLoginViewController delegate
-
--(BOOL) logInViewController:(PFLogInViewController * __nonnull)logInController shouldBeginLogInWithUsername:(NSString * __nonnull)username password:(NSString * __nonnull)password{
-    if (username && password && username.length !=0 && password.length !=0) {
-        return YES;
-        
-    }else{
-        [[[UIAlertView alloc] initWithTitle:@"Field missing" message:@"Make sure to fill all required fields!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        
-        return NO;
-    }
-    
-}
-
--(void) logInViewController:(PFLogInViewController * __nonnull)logInController didLogInUser:(PFUser * __nonnull)user{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void) logInViewController:(PFLogInViewController * __nonnull)logInController didFailToLogInWithError:(nullable NSError *)error{
-    [[[UIAlertView alloc]initWithTitle:@"Login failed" message:@"User and password don't match" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-}
-
--(void) logInViewControllerDidCancelLogIn:(PFLogInViewController * __nonnull)logInController{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -165,18 +92,8 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     QueryTableViewCell *queryCell = [tableView dequeueReusableCellWithIdentifier:@"queryCell" forIndexPath:indexPath];
-    
-    /*if (cell) {
-        UILabel *queryLabel =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 200)];
-        queryLabel.numberOfLines = 0;
-        Query *newQuery = [DataSource sharedInstance].queryElements[indexPath.row];
-        queryLabel.text = newQuery.query;
-        [cell.contentView addSubview:queryLabel];
-    }*/
-    
     
     if (queryCell) {
         queryCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -187,23 +104,21 @@
         queryCell.query =[DataSource sharedInstance].queryElements[indexPath.row];
     }
     
-    
-    
-    // Configure the cell...
-    
     return queryCell;
 }
+
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
 }
 
-/*-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
     
-}*/
+}
 
 
 #pragma mark - New question button pressed
@@ -230,30 +145,6 @@
 
 
 
-
-/*-(void) profileImage{
-    if ([User currentUser]) {
-        User *user = [User currentUser];
-        
-        UIImage *image = [UIImage imageNamed:@"11.png"];
-        NSData *imageData = UIImagePNGRepresentation(image);
-        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
-        user.profileImage = imageFile;
-        
-        NSString *profileDescription = @"Hi!! it's me!";
-        user.userProfileDescription =profileDescription;
-        
-        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-            if (succeeded) {
-                NSLog(@"Image creation succesful!");
-            }else{
-                NSLog(@"Image creation failed!");
-            }
-        }];
-        
-    }
-}*/
-
 #pragma mark - Cell tap events
 
 -(void) didTapAnswerUserLabel:(QueryTableViewCell *)queryCell{
@@ -264,6 +155,19 @@
 -(void) didTapQueryLabel:(QueryTableViewCell *)queryCell{
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:queryCell.query];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
+}
+
+#pragma mark - logout/login events
+
+-(void) logoutOccurred{
+    
+    [DataSource sharedInstance].queryElements = nil;
+}
+
+-(void) loginOccurred{
+    
+    [self viewDidAppear:YES];
+    
 }
 
 

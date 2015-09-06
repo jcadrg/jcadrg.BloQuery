@@ -13,7 +13,7 @@
 
 @dynamic user;
 @dynamic query;
-
+@dynamic answerCount;
 @dynamic answersList;
 
 //These 2 methods are the same as the tutorial in parse documentation
