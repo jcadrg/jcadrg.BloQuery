@@ -74,7 +74,7 @@ static NSParagraphStyle *paragraphStyle;
         self.upVoteCountLabel.textColor = upVoteCountColor;
         
         self.upVoteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.upVoteButton setTitle:@"upVote" forState:UIControlStateNormal];
+        //[self.upVoteButton setTitle:@"upVote" forState:UIControlStateNormal];
         [self.upVoteButton addTarget:self action:@selector(upVotePressed:) forControlEvents:UIControlEventTouchUpInside];
         
         self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
@@ -90,7 +90,9 @@ static NSParagraphStyle *paragraphStyle;
 }
 
 -(void) upVotePressed:(UIButton *) sender{
+    NSLog(@"Up Vote button pressed!");
     [self.delegate didTapupVoteButton:self];
+    
 }
 
 -(void) setAnswer:(NewAnswer *)answer{
@@ -107,12 +109,13 @@ static NSParagraphStyle *paragraphStyle;
     CGFloat padding = 10;
     CGFloat answerHeight = 40;
     CGFloat answerUserHeight = 10;
-    CGFloat upVoteCountHeight =10;
+    CGFloat answerCountHeight =10;
     
     self.answerLabel.frame = CGRectMake(padding, padding, CGRectGetWidth(self.contentView.bounds)-(2 * padding), answerHeight);
     
     self.answerUserLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), answerUserHeight);
-    self.upVoteCountLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerUserLabel.frame) + padding, CGRectGetWidth(self.bounds) - (2 * padding), upVoteCountHeight);
+    self.upVoteCountLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerUserLabel.frame) + padding, CGRectGetWidth(self.bounds)/2 - padding, answerCountHeight);
+    self.upVoteButton.frame = CGRectMake(CGRectGetMaxX(self.upVoteCountLabel.frame), CGRectGetMaxY(self.answerUserLabel.frame)+padding,CGRectGetWidth(self.bounds)/2 - padding, answerCountHeight);
     
 }
 
@@ -126,6 +129,15 @@ static NSParagraphStyle *paragraphStyle;
 
 -(void) setSelected:(BOOL)selected animated:(BOOL)animated{
     [super setSelected:selected animated:animated];
+}
+
+-(void) setState:(BOOL)state{
+    _state = state;
+    if (_state == YES) {
+        [self.upVoteButton setTitle:@"UpVoted" forState:UIControlStateNormal];
+    }else{
+        [self.upVoteButton setTitle:@"UpVote" forState:UIControlStateNormal];
+    }
 }
 
 

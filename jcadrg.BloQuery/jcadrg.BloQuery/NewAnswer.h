@@ -18,10 +18,10 @@
 @property (nonatomic, strong) User *username;
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSString *textAnswer;
-@property (nonatomic, strong) NSArray *userupVoteList;
+@property (nonatomic, strong) NSMutableArray *userupVoteList;
 @property (nonatomic, assign) NSUInteger *upVoteCounter;
 
-@property (nonatomic, assign) BOOL state;
+
 
 
 //@property (nonatomic, assign) NSInteger *upVote;

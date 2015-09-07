@@ -49,6 +49,9 @@ typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
 //Update count of upVotes
 -(void) updateupVoteCounter:(NewAnswer *) answer withCompletionHandler:(upVoteCounterChangeCompletionBlock) completionHandler;
 
+//Upvote status
+-(BOOL) upvoteCurrentState:(NewAnswer *)answer;
+
 
 
 

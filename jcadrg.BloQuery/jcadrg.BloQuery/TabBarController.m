@@ -50,13 +50,13 @@
         [[DataSource sharedInstance] retrieveParseConfig];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Login" object:self];
         
-        QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
+        /*QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
         UINavigationController *navigationController = [[UINavigationController alloc] init];
         [navigationController setViewControllers:@[queryTableVC] animated:YES];
         
         UserProfileViewController *profileViewController = [[UserProfileViewController alloc] initWithUser:[User currentUser]];
         
-        self.viewControllers = [NSArray arrayWithObjects:navigationController, profileViewController ,nil];
+        self.viewControllers = [NSArray arrayWithObjects:navigationController, profileViewController ,nil];*/
         
     }
 }

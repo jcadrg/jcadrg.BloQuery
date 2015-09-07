@@ -18,11 +18,14 @@
 -(void) didTapUserAnswerLabel:(AnswerTableViewCell *)answerCell;
 -(void) didTapupVoteButton:(AnswerTableViewCell *)answerCell;
 
+
 @end
 
 @interface AnswerTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) id<AnswerTableViewCellDelegate> delegate;
 @property (nonatomic, strong) NewAnswer *answer;
+
+@property (nonatomic, assign) BOOL state;
 
 @end

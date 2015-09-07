@@ -16,7 +16,7 @@
 @dynamic textAnswer;
 @dynamic userupVoteList;
 @dynamic upVoteCounter;
-@dynamic state;
+
 //@dynamic upVoteCount;
 
 +(void) load{

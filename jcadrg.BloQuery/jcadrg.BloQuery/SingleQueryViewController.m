@@ -241,11 +241,11 @@ static NSParagraphStyle *paragraphStyle;
     
     [[DataSource sharedInstance] submitAnswersForQueries:self.singleQuery withText:answer withCompletionHandler:^(NSError *error){
         NSLog(@"answer saved");
-        
-        [self.answersTableView reloadData];
-        
-        _singleQuery = self.singleQuery;
-        [self setSingleQuery:_singleQuery];
+        [[DataSource sharedInstance] retrieveAnswersForQueries:self.singleQuery withCompletionHandler:^(NSError *error){
+            [self.answersTableView reloadData];
+            _singleQuery = self.singleQuery;
+            [self setSingleQuery:_singleQuery];
+        }];
         
     }];
 }
@@ -259,6 +259,7 @@ static NSParagraphStyle *paragraphStyle;
     return self.singleQuery.answersList.count;
 }
 
+
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
    AnswerTableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
@@ -268,14 +269,10 @@ static NSParagraphStyle *paragraphStyle;
         if ([answerCell respondsToSelector:@selector(layoutMargins)]) {
             answerCell.layoutMargins = UIEdgeInsetsZero;
         }
-        
-        /*UILabel *answerLabel = [[UILabel alloc] init];
-        NewAnswer *answer = self.singleQuery.answersList[indexPath.row];
-        answerLabel.text = answer.textAnswer;
-        [answerCell.contentView addSubview:answerLabel];*/
-        
         answerCell.delegate = self;
-        answerCell.answer = self.singleQuery.answersList[indexPath.row];
+        NewAnswer *answer = self.singleQuery.answersList[indexPath.row];
+        answerCell.answer = answer;
+        answerCell.state = [[DataSource sharedInstance] upvoteCurrentState:answer];
         
         
     }
@@ -307,8 +304,20 @@ static NSParagraphStyle *paragraphStyle;
 -(void) didTapupVoteButton:(AnswerTableViewCell *)answerCell{
     [[DataSource sharedInstance] updateupVoteCounter:answerCell.answer withCompletionHandler:^(NSError *error){
         [self.answersTableView reloadData];
+        [self reorderCell:answerCell];
     }];
 }
+
+-(void)reorderCell:(AnswerTableViewCell *) answerCell{
+    
+}
+
+-(void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    NewAnswer *answer = [self.singleQuery.answersList objectAtIndex:sourceIndexPath.row];
+    [self.singleQuery.answersList removeObjectAtIndex:sourceIndexPath.row];
+    [self.singleQuery.answersList insertObject:answer atIndex:destinationIndexPath.row];
+}
+
 
 /*
 #pragma mark - Navigation

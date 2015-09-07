@@ -144,26 +144,21 @@
         NSLog(@"Got to submit method!");
         NewAnswer *newAnswer = [NewAnswer object];
         newAnswer.username = [User currentUser];
-        /*newAnswer.userupVoteList = @[];
-        newAnswer.state = NO;*/
         
-        newAnswer.upVoteCounter = 0;
-
         newAnswer.textAnswer =  queryText;
-        //newAnswer.query = query;
-        
         [newAnswer setObject:query forKey:@"query"];
         
-        NSLog(@"answer object : %@", newAnswer);
+ 
+        /*NSArray *upVoterList = @[];
+        [newAnswer setObject:upVoterList forKey:@"upVoterList"];
         
-        /*NSMutableArray *answerListCopy = [query.answersList mutableCopy];
-        [answerListCopy addObject:newAnswer];
-        [query setObject:[answerListCopy copy] forKey:@"answersList"];*/
+        newAnswer.upVoteCounter = 0;
+        
+        NSLog(@"answer object : %@", newAnswer);*/
+
         
         [query.answersList addObject:newAnswer];
-        //query.answerCount += 1;
-  
-        
+
         [query saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             NSLog(@"Request to save query with answer fired");
             if(succeeded){
@@ -257,25 +252,57 @@
     
 }*/
 
+#pragma mark - Upvote methods
+
 -(void) updateupVoteCounter:(NewAnswer *)answer withCompletionHandler:(upVoteCounterChangeCompletionBlock)completionHandler{
     
-    if ([User currentUser]) {
-        NSMutableArray *upVoteUserArray = [answer.userupVoteList mutableCopy];
-        [upVoteUserArray addObject:[User currentUser]];
-        answer.userupVoteList = upVoteUserArray;
-        answer.upVoteCounter +=1;
+    User *user = [User currentUser];
+    
+    if ([answer.userupVoteList containsObject:user]) {
+        
+        NSLog(@"User already liked");
+        [answer.userupVoteList removeObject:user];
+        answer.upVoteCounter -=1;
+        
         [answer saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
             if (succeded) {
                 if (completionHandler) {
                     completionHandler(nil);
-                    
                 }else{
-                    NSLog(@"Could not update upVote count!");
+                    NSLog(@"upvote counter not decreased");
+                }
+            }
+        }];
+    }else{
+        NSLog(@"user has not upvoted yet");
+        NSLog(@"answer: %@", answer);
+        [answer.userupVoteList addObject:user];
+        answer.upVoteCounter +=1;
+        [answer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            if (succeeded) {
+                if (completionHandler) {
+                    completionHandler(nil);
+                }else{
+                    NSLog(@"upvote counter not increased");
                 }
             }
         }];
     }
 }
+
+-(BOOL) upvoteCurrentState:(NewAnswer *)answer{
+    
+    User *user = [User currentUser];
+    
+    if ([answer.userupVoteList containsObject:user]) {
+        return YES;
+    
+    }else{
+        return NO;
+    }
+}
+
+
 
 @end
 
