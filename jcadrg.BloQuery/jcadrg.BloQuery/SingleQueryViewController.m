@@ -284,8 +284,11 @@ static NSParagraphStyle *paragraphStyle;
 -(void) didTapUserAnswerLabel:(AnswerTableViewCell *)answerCell{
     
     NSLog(@"Got here!");
+    
+    ////[self.navigationController performSegueWithIdentifier:@"showProfile" sender:self];
     UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:answerCell.answer.username];
     [self.navigationController pushViewController:profileVC animated:YES];
+    
 
 }
 
@@ -303,20 +306,30 @@ static NSParagraphStyle *paragraphStyle;
 
 -(void) didTapupVoteButton:(AnswerTableViewCell *)answerCell{
     [[DataSource sharedInstance] updateupVoteCounter:answerCell.answer withCompletionHandler:^(NSError *error){
-        [self.answersTableView reloadData];
+        //[self.answersTableView reloadData];
+        answerCell.answer = answerCell.answer;
+        answerCell.state = [[DataSource sharedInstance] upvoteCurrentState:answerCell.answer];
         [self reorderCell:answerCell];
     }];
 }
 
 -(void)reorderCell:(AnswerTableViewCell *) answerCell{
     
+    NSUInteger previousIndex = [self.singleQuery.answersList indexOfObject:answerCell.answer];
+    [self.singleQuery.answersList sortUsingComparator:^NSComparisonResult(NewAnswer *object1, NewAnswer *object2){
+        return [@(object2.upVoteCounter) compare:@(object1.upVoteCounter)];
+    }];
+    
+    NSUInteger postIndex = [self.singleQuery.answersList indexOfObject:answerCell.answer];
+    [self.answersTableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:previousIndex inSection:0] toIndexPath:[NSIndexPath indexPathForRow:postIndex inSection:0]];
+
 }
 
--(void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+/*-(void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
     NewAnswer *answer = [self.singleQuery.answersList objectAtIndex:sourceIndexPath.row];
     [self.singleQuery.answersList removeObjectAtIndex:sourceIndexPath.row];
     [self.singleQuery.answersList insertObject:answer atIndex:destinationIndexPath.row];
-}
+}*/
 
 
 /*
