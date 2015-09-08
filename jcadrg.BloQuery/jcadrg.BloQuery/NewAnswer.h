@@ -10,8 +10,7 @@
 #import "User.h"
 #import "Query.h"
 
-@class User;
-@class Query;
+
 
 @interface NewAnswer : PFObject <PFSubclassing>
 
@@ -19,7 +18,7 @@
 @property (nonatomic, strong) Query *query;
 @property (nonatomic, strong) NSString *textAnswer;
 @property (nonatomic, strong) NSMutableArray *userupVoteList;
-@property (nonatomic, assign) NSUInteger *upVoteCounter;
+@property (nonatomic, assign) NSUInteger upVoteCounter;
 
 
 

@@ -58,6 +58,7 @@
         
         self.viewControllers = [NSArray arrayWithObjects:navigationController, profileViewController ,nil];*/
         
+        
     }
 }
 

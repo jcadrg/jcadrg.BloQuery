@@ -149,12 +149,12 @@
         [newAnswer setObject:query forKey:@"query"];
         
  
-        /*NSArray *upVoterList = @[];
+        NSArray *upVoterList = @[];
         [newAnswer setObject:upVoterList forKey:@"upVoterList"];
         
         newAnswer.upVoteCounter = 0;
         
-        NSLog(@"answer object : %@", newAnswer);*/
+        NSLog(@"answer object : %@", newAnswer);
 
         
         [query.answersList addObject:newAnswer];
@@ -257,6 +257,7 @@
 -(void) updateupVoteCounter:(NewAnswer *)answer withCompletionHandler:(upVoteCounterChangeCompletionBlock)completionHandler{
     
     User *user = [User currentUser];
+
     
     if ([answer.userupVoteList containsObject:user]) {
         
@@ -276,7 +277,13 @@
     }else{
         NSLog(@"user has not upvoted yet");
         NSLog(@"answer: %@", answer);
+        
+        answer.userupVoteList = [[NSMutableArray alloc] init]; //Initializing the array did the trick!
+        
         [answer.userupVoteList addObject:user];
+        
+        NSLog(@"%@",answer.userupVoteList); //Checking if something is actually being added into the array
+        
         answer.upVoteCounter +=1;
         [answer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
             if (succeeded) {
@@ -286,6 +293,7 @@
                     NSLog(@"upvote counter not increased");
                 }
             }
+            
         }];
     }
 }
