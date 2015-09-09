@@ -23,7 +23,7 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 
 typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
 
-//typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
+typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
 
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
@@ -44,7 +44,7 @@ typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
 -(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
 
 //User profile method
-//-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
+-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
 
 //Update count of upVotes
 -(void) updateupVoteCounter:(NewAnswer *) answer withCompletionHandler:(upVoteCounterChangeCompletionBlock) completionHandler;

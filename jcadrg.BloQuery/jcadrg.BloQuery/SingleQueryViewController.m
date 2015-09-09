@@ -2,23 +2,21 @@
 //  SingleQueryViewController.m
 //  jcadrg.BloQuery
 //
-//  Created by Mac on 8/26/15.
+//  Created by Mac on 9/9/15.
 //  Copyright (c) 2015 Mac. All rights reserved.
 //
 
 #import "SingleQueryViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "HexColors.h"
-#import "Query+CellStyleUtilities.h"
 #import "DataSource.h"
-#import "NewAnswerAlertController.h"
-#import "User.h"
+#import "Query+CellStyleUtilities.h"
 #import "NewAnswer.h"
 #import "AnswerTableViewCell.h"
+#import "NewAnswerAlertController.h"
 #import "UserProfileViewController.h"
 
-
-@interface SingleQueryViewController ()<NewAnswerAlertController, UITableViewDelegate, UITableViewDataSource, AnswerTableViewCellDelegate>
+@interface SingleQueryViewController () <NewAnswerAlertController, UITableViewDataSource, UITableViewDelegate, AnswerTableViewCellDelegate>
 
 @property (nonatomic, strong) UILabel *queryLabel;
 @property (nonatomic, strong) UILabel *askerLabel;
@@ -30,7 +28,6 @@
 @property (nonatomic, strong) Query *singleQuery;
 
 @property (nonatomic, strong) UITapGestureRecognizer *queryUserTapGestureRecognizer;
-
 
 @end
 
@@ -47,33 +44,32 @@ static UIColor *answerCounterColor;
 static NSParagraphStyle *paragraphStyle;
 
 /*- (void)viewDidLoad {
-    [super viewDidLoad];
-    // There's no need of using reuse identifiers since i only want one cell here.
-    
-    if (self) {
-        
-        self.queryLabel = [[UILabel alloc] init];
-        self.queryLabel.numberOfLines = 0;
-        self.askerLabel = [[UILabel alloc] init];
-        self.askerLabel.numberOfLines =0;
-        self.answerCounter = [[UILabel alloc] init];
-        self.answerCounter.numberOfLines =0;
-        
-        self.queryLabel.text = self.singleQuery.query;
-        self.askerLabel.text =self.singleQuery.user.username;
-        self.answerCounter.text = @"2 answers!";
-        
-        
-        
-        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
-            [self.view addSubview:view];
-        }
-        
-        
-    }
-
-    
-}*/
+ [super viewDidLoad];
+ // There's no need of using reuse identifiers since i only want one cell here.
+ 
+ if (self) {
+ 
+ self.queryLabel = [[UILabel alloc] init];
+ self.queryLabel.numberOfLines = 0;
+ self.askerLabel = [[UILabel alloc] init];
+ self.askerLabel.numberOfLines =0;
+ self.answerCounter = [[UILabel alloc] init];
+ self.answerCounter.numberOfLines =0;
+ 
+ self.queryLabel.text = self.singleQuery.query;
+ self.askerLabel.text =self.singleQuery.user.username;
+ self.answerCounter.text = @"2 answers!";
+ 
+ 
+ 
+ for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
+ [self.view addSubview:view];
+ }
+ 
+ 
+ }
+ 
+ }*/
 
 +(void) load{
     
@@ -95,7 +91,7 @@ static NSParagraphStyle *paragraphStyle;
     mutableParagraphStyle.paragraphSpacingBefore = 1;
     
     paragraphStyle = mutableParagraphStyle;
-
+    
     
 }
 
@@ -103,8 +99,8 @@ static NSParagraphStyle *paragraphStyle;
     [super viewDidLoad];
     
     /*NSString *userString = [NSString stringWithFormat:@"%@ asked", self.askerUsername];
-    
-    [self setTitle:NSLocalizedString(userString, nil)];*/
+     
+     [self setTitle:NSLocalizedString(userString, nil)];*/
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Answer", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newAnswerButtonPressed)];
     
@@ -142,8 +138,8 @@ static NSParagraphStyle *paragraphStyle;
         [self setSingleQuery:singleQuery];
         
         /*for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.answersTableView]) {
-            [self.view addSubview:view];
-        }*/
+         [self.view addSubview:view];
+         }*/
     }
     
     
@@ -189,8 +185,8 @@ static NSParagraphStyle *paragraphStyle;
     [self setTitle:NSLocalizedString(userString, nil)];
     
 }
-    
-    
+
+
 
 
 -(void) viewWillLayoutSubviews{
@@ -262,7 +258,7 @@ static NSParagraphStyle *paragraphStyle;
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-   AnswerTableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
+    AnswerTableViewCell *answerCell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
     
     if (answerCell) {
         answerCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -289,7 +285,7 @@ static NSParagraphStyle *paragraphStyle;
     UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:answerCell.answer.username];
     [self.navigationController pushViewController:profileVC animated:YES];
     
-
+    
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -322,32 +318,27 @@ static NSParagraphStyle *paragraphStyle;
     
     NSUInteger postIndex = [self.singleQuery.answersList indexOfObject:answerCell.answer];
     [self.answersTableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:previousIndex inSection:0] toIndexPath:[NSIndexPath indexPathForRow:postIndex inSection:0]];
-
+    
 }
 
 /*-(void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    NewAnswer *answer = [self.singleQuery.answersList objectAtIndex:sourceIndexPath.row];
-    [self.singleQuery.answersList removeObjectAtIndex:sourceIndexPath.row];
-    [self.singleQuery.answersList insertObject:answer atIndex:destinationIndexPath.row];
-}*/
+ NewAnswer *answer = [self.singleQuery.answersList objectAtIndex:sourceIndexPath.row];
+ [self.singleQuery.answersList removeObjectAtIndex:sourceIndexPath.row];
+ [self.singleQuery.answersList insertObject:answer atIndex:destinationIndexPath.row];
+ }*/
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+ #pragma mark - Navigation
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 
-    
-    
-    
 
 
 @end

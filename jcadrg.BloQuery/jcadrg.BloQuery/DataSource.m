@@ -248,9 +248,9 @@
 
 #pragma mark - Image request
 
-/*-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
+-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
     
-}*/
+}
 
 #pragma mark - Upvote methods
 

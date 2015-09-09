@@ -6,9 +6,13 @@
 //  Copyright (c) 2015 Mac. All rights reserved.
 //
 
+@class User;
+
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import <ParseUI/ParseUI.h>
+
+
 
 @interface UserProfileViewController : UIViewController
 

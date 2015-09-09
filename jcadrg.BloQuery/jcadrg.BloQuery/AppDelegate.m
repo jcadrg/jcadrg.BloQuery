@@ -35,28 +35,24 @@
     [DataSource sharedInstance];
     
     TabBarController *tabBarController= [[TabBarController alloc] init];
-    QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
-
-
     
+    /*QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
+   
     UINavigationController *navVC = [[UINavigationController alloc] init];
     [navVC setViewControllers:@[queryTableVC] animated:YES];
     
+    
     UserProfileViewController *profileVC = [[UserProfileViewController alloc] init];
-    [profileVC setTitle:@"User Profile"];
-
     
     if ([User currentUser]) {
         profileVC.user =[User currentUser];
     }
     
-    tabBarController.viewControllers = [NSArray arrayWithObjects:navVC, profileVC, nil];
+    [profileVC setTitle:@"User Profile"];
 
     
- 
-    
+    tabBarController.viewControllers = [NSArray arrayWithObjects:navVC, profileVC, nil];*/
 
-    
     
     self.window.rootViewController = tabBarController;
     

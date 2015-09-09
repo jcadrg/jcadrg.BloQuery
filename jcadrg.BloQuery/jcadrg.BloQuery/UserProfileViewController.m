@@ -8,13 +8,18 @@
 
 #import "UserProfileViewController.h"
 #import "User.h"
+#import "DataSource.h"
+#import <ParseUI/ParseUI.h>
 
 @interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
-@property (nonatomic, strong) UILabel *userProfileDescription;
+@property (nonatomic, strong) UILabel *userProfileDescriptionLabel;
 ///@property (weak, nonatomic) IBOutlet UILabel *userProfileDescription;
+
+@property UIButton *editProfileImageButton;
+@property UIButton *editProfileDescriptionButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
 
@@ -28,36 +33,45 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
-    self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.logoutButton.frame = CGRectMake(160, 50, 100, 50);
-    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
-    [self.logoutButton addTarget:self action:@selector(logoutTapFired:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.userProfileImageView = [[PFImageView alloc] initWithFrame:CGRectMake(5, 50, 150, 150)];
-    self.userProfileImageView.image =[UIImage imageNamed:@"11.png"];
-    self.userProfileImageView.file = (PFFile *)self.user.profileImage;
-    
+    self.userProfileImageView = [[PFImageView alloc] init];
+    self.userProfileImageView.image = [UIImage imageNamed:@"11.png"];
+    self.userProfileImageView.file = (PFFile *) self.user.profileImage;
     [self.userProfileImageView loadInBackground];
     
-    self.userProfileDescription = [[UILabel alloc] initWithFrame:CGRectMake(160, 100, 200, 300)];
-    self.userProfileDescription.text = @"TEXT HERE";//self.user.userProfileDescription;
+    self.userProfileDescriptionLabel = [[UILabel alloc] init];
+    self.userProfileDescriptionLabel.text = self.user.userProfileDescription;
     
+    /*self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+    [self.logoutButton addTarget:self action:@selector(logoutTapPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.logoutButton];*/
     
-    
-    for (UIView *view in @[self.userProfileImageView, self.userProfileDescription, self.logoutButton]) {
+    for (UIView *view in @[self.userProfileImageView, self.userProfileDescriptionLabel]) {
         [self.view addSubview:view];
     }
-    /*
-
-    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
-    [self.logoutButton addTarget:self action:@selector(logoutTapFired:) forControlEvents:UIControlEventTouchUpInside];
     
-  //  self.userProfileImageView.image =[UIImage imageNamed:@"11.png"];
-    self.userProfileImageView.file = (PFFile *)self.user.profileImage;
-    [self.userProfileImageView loadInBackground];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
     
-    self.userProfileDescription.text = self.user.userProfileDescription;
-     */
+    if (self.loggedIn) {
+        self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
+        [self.logoutButton addTarget:self action:@selector(logoutTapPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.editProfileImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.editProfileImageButton setTitle:@"Edit Picture" forState:UIControlStateNormal];
+        [self.editProfileImageButton addTarget:self action:@selector(editProfileImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.editProfileDescriptionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.editProfileDescriptionButton setTitle:@"Edit Description" forState:UIControlStateNormal];
+        [self.editProfileDescriptionButton addTarget:self action:@selector(editProfileDescriptionButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+        
+        for (UIView *view in @[self.logoutButton, self.editProfileImageButton, self.editProfileDescriptionButton]) {
+            [self.view addSubview:view];
+        }
+    }
+    
 
 }
 
@@ -79,16 +93,43 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    self.userProfileImageView.frame = CGRectMake(0, 40, 400, 500);
-    self.userProfileDescription.frame = CGRectMake(0, 540, 400, 20);
-    self.logoutButton.frame = CGRectMake(0, 0, 100, 50);
+    self.userProfileImageView.frame = CGRectMake(0, 40, 200, 200);
+    self.userProfileDescriptionLabel.frame = CGRectMake(0, 540, 400, 20);
+    if (self.loggedIn) {
+        //self.logoutButton.frame = CGRectMake(0, 530, 320, 50);
+        self.editProfileImageButton.frame = CGRectMake(0, 250, 100, 20);
+        self.editProfileDescriptionButton.frame = CGRectMake(0, 300, 400, 20);
+        self.logoutButton.frame = CGRectMake(0, 560, 320, 50);
+    }
     
     
 }
 
--(void) logoutTapFired: (id) sender{
+
+-(void) logoutTapPressed: (id) sender{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:self];
+}
+
+#pragma mark - Button tap events
+
+-(void) editProfileImageButtonTap:(id) sender{
+    NSLog(@"Editing profile picture");
+}
+
+-(void) editProfileDescriptionButtonTap:(id) sender{
+    NSLog(@"Editing profile description");
+}
+
+
+#pragma mark - Login notification methods
+
+-(void) loginOccurred{
+    
+}
+
+-(void) logoutOccurred{
+    
 }
 
 

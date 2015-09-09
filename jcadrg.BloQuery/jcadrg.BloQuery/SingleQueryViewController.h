@@ -2,20 +2,16 @@
 //  SingleQueryViewController.h
 //  jcadrg.BloQuery
 //
-//  Created by Mac on 8/26/15.
+//  Created by Mac on 9/9/15.
 //  Copyright (c) 2015 Mac. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "Query.h"
-
 @class Query;
+
+#import <UIKit/UIKit.h>
 
 @interface SingleQueryViewController : UIViewController
 
-//@property (nonatomic, strong) Query *singleQuery;
-
-
--(id)initWithQuery:(Query *) singleQuery;
+-(id) initWithQuery:(Query *)singleQuery;
 
 @end

@@ -18,7 +18,6 @@
 		5D271F631B868E2D00D378FE /* jcadrg_BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F621B868E2D00D378FE /* jcadrg_BloQueryTests.m */; };
 		5D370DA81B951FBD00A6575A /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D370DA71B951FBD00A6575A /* AnswerTableViewCell.m */; };
 		5D4188F81B92F156000930C7 /* NewAnswerAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4188F71B92F156000930C7 /* NewAnswerAlertController.m */; };
-		5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4651B8D907C00234233 /* SingleQueryViewController.m */; };
 		5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */; };
 		5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148331B8B14C60053E9BA /* QueryTableViewController.m */; };
 		5D7148371B8B15710053E9BA /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7148361B8B15710053E9BA /* DataSource.m */; };
@@ -30,6 +29,7 @@
 		5DAC6BEF1B99738E00DD5DE0 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAC6BEE1B99738E00DD5DE0 /* 11.png */; };
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
+		5DEA37F21BA0C8120092161B /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
 		5DF94D861B869A41007F12D0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D851B869A41007F12D0 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
@@ -66,8 +66,6 @@
 		5D370DA71B951FBD00A6575A /* AnswerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerTableViewCell.m; sourceTree = "<group>"; };
 		5D4188F61B92F156000930C7 /* NewAnswerAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAnswerAlertController.h; sourceTree = "<group>"; };
 		5D4188F71B92F156000930C7 /* NewAnswerAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnswerAlertController.m; sourceTree = "<group>"; };
-		5D68C4641B8D907C00234233 /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
-		5D68C4651B8D907C00234233 /* SingleQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleQueryViewController.m; sourceTree = "<group>"; };
 		5D68C4671B8FE12F00234233 /* Query+CellStyleUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Query+CellStyleUtilities.h"; sourceTree = "<group>"; };
 		5D68C4681B8FE12F00234233 /* Query+CellStyleUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Query+CellStyleUtilities.m"; sourceTree = "<group>"; };
 		5D7148321B8B14C60053E9BA /* QueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTableViewController.h; sourceTree = "<group>"; };
@@ -89,6 +87,8 @@
 		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
 		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		5DE360431B880209002790CE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		5DEA37F01BA0C8120092161B /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
+		5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleQueryViewController.m; sourceTree = "<group>"; };
 		5DF94D831B869A20007F12D0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DF94D851B869A41007F12D0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		788D7D79482CB607C8EF39A5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 				5D7148391B8C0BE40053E9BA /* QueryTableViewCell.m */,
 				5D7148321B8B14C60053E9BA /* QueryTableViewController.h */,
 				5D7148331B8B14C60053E9BA /* QueryTableViewController.m */,
-				5D68C4641B8D907C00234233 /* SingleQueryViewController.h */,
-				5D68C4651B8D907C00234233 /* SingleQueryViewController.m */,
+				5DEA37F01BA0C8120092161B /* SingleQueryViewController.h */,
+				5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */,
 				5D8F54CF1B98FE400098A6FF /* TabBarController.h */,
 				5D8F54D01B98FE400098A6FF /* TabBarController.m */,
 				5D71483B1B8C23990053E9BA /* ViewController.h */,
@@ -372,6 +372,7 @@
 				5D370DA81B951FBD00A6575A /* AnswerTableViewCell.m in Sources */,
 				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
+				5DEA37F21BA0C8120092161B /* SingleQueryViewController.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
 				5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */,
 				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
@@ -381,7 +382,6 @@
 				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
 				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,
-				5D68C4661B8D907C00234233 /* SingleQueryViewController.m in Sources */,
 				5D8F54D11B98FE400098A6FF /* TabBarController.m in Sources */,
 				5D4188F81B92F156000930C7 /* NewAnswerAlertController.m in Sources */,
 				5D0B297D1B914FFE009B3D54 /* QueryAlertController.m in Sources */,

@@ -78,8 +78,6 @@ static NSParagraphStyle *paragraphStyle;
         [self.upVoteButton addTarget:self action:@selector(upVotePressed:) forControlEvents:UIControlEventTouchUpInside];
         
         self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
-        //self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
-        
         self.userAnswerTapGestureRecognizer.delegate = self;
         [self.answerUserLabel addGestureRecognizer:self.userAnswerTapGestureRecognizer];
         self.answerUserLabel.userInteractionEnabled = YES;

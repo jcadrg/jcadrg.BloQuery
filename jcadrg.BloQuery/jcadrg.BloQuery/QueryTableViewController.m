@@ -13,6 +13,7 @@
 #import "Query.h"
 #import "DataSource.h"
 #import "QueryTableViewCell.h"
+
 #import "SingleQueryViewController.h"
 #import "HexColors.h"
 #import "SDCAlertController.h"
@@ -56,11 +57,14 @@
     }*/
 }
 
--(void) viewWillAppear:(BOOL)animated{
+
+-(void) viewDidAppear:(BOOL)animated{
+    
     NSLog(@"Requesting queries!");
     [[DataSource sharedInstance] retrieveQueryWithCompletionHandler:^(NSError *error){
         [self.tableView reloadData];
     }];
+    
 }
 
 -(void) dealloc{
@@ -117,7 +121,7 @@
     
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:[DataSource sharedInstance].queryElements[indexPath.row]];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
-    
+ 
 }
 
 
@@ -153,8 +157,16 @@
 }
 
 -(void) didTapQueryLabel:(QueryTableViewCell *)queryCell{
+    
     SingleQueryViewController *singleQueryVC = [[SingleQueryViewController alloc] initWithQuery:queryCell.query];
     [self.navigationController pushViewController:singleQueryVC animated:YES];
+    
+    /*[[DataSource sharedInstance] retrieveAnswersForQueries:queryCell.query withCompletionHandler:^(NSError *error){
+        QueryAnswersTableViewController *queryAnswersTableVC = [[QueryAnswersTableViewController alloc] initWithQuery:queryCell.query];
+        [self.navigationController pushViewController:queryAnswersTableVC animated:YES];
+    }];*/
+    
+
 }
 
 #pragma mark - logout/login events
@@ -166,7 +178,6 @@
 
 -(void) loginOccurred{
     
-    [self viewDidAppear:YES];
     
 }
 
