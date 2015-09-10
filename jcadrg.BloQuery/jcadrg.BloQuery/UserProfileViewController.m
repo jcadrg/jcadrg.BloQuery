@@ -11,7 +11,9 @@
 #import "DataSource.h"
 #import <ParseUI/ParseUI.h>
 
-@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate>
+#import "CameraViewController.h"
+
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate, CameraViewControllerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
@@ -22,6 +24,8 @@
 @property UIButton *editProfileDescriptionButton;
 
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
+
+@property (nonatomic,strong) UIPopoverController *cameraPopover;
 
 @end
 
@@ -115,7 +119,60 @@
 
 -(void) editProfileImageButtonTap:(id) sender{
     NSLog(@"Editing profile picture");
+    
+    UIViewController *imageVC;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        CameraViewController *cameraVC = [[CameraViewController alloc] init];
+        cameraVC.delegate = self;
+        imageVC = cameraVC;
+    }
+    
+    if (imageVC) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            [self presentViewController:nav animated:YES completion:nil];
+        
+        }else{
+            self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+            self.cameraPopover.popoverContentSize = CGSizeMake(320, 560);
+            [self.cameraPopover presentPopoverFromRect:CGRectMake(0, 0, 100, 20) inView:self.editProfileImageButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+    }
 }
+
+-(void) handleImage:(UIImage *) image withNavigationController:(UINavigationController *)nav{
+    if (image) {
+        NSLog(@"image: %@", image);
+        NSLog(@"This is where we upload an image to Parse");
+        
+    }else{
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            [nav dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [self.cameraPopover dismissPopoverAnimated:YES];
+            self.cameraPopover = nil;
+        }
+    }
+}
+
+-(void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image{
+    [self handleImage:image withNavigationController:cameraViewController.navigationController];
+}
+
+#pragma mark - Popover Handling
+
+-(void) imageDidFinish:(NSNotification *) notification{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    
+    }else{
+        [self.cameraPopover dismissPopoverAnimated:YES];
+        self.cameraPopover = nil;
+    }
+}
+
+
 
 -(void) editProfileDescriptionButtonTap:(id) sender{
     NSLog(@"Editing profile description");

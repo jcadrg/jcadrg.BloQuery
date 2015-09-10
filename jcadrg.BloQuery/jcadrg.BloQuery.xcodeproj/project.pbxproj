@@ -30,6 +30,10 @@
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DEA37F21BA0C8120092161B /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */; };
+		5DEA37F51BA0E6C00092161B /* CameraToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37F41BA0E6C00092161B /* CameraToolbar.m */; };
+		5DEA37F81BA13DF50092161B /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37F71BA13DF50092161B /* CameraViewController.m */; };
+		5DEA37FB1BA13F1F0092161B /* CropBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37FA1BA13F1F0092161B /* CropBox.m */; };
+		5DEA37FE1BA15AE60092161B /* UIImage+imageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37FD1BA15AE60092161B /* UIImage+imageUtilities.m */; };
 		5DF94D841B869A20007F12D0 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D831B869A20007F12D0 /* libz.dylib */; };
 		5DF94D861B869A41007F12D0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF94D851B869A41007F12D0 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
@@ -89,6 +93,14 @@
 		5DE360431B880209002790CE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		5DEA37F01BA0C8120092161B /* SingleQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleQueryViewController.h; sourceTree = "<group>"; };
 		5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleQueryViewController.m; sourceTree = "<group>"; };
+		5DEA37F31BA0E6C00092161B /* CameraToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraToolbar.h; sourceTree = "<group>"; };
+		5DEA37F41BA0E6C00092161B /* CameraToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraToolbar.m; sourceTree = "<group>"; };
+		5DEA37F61BA13DF50092161B /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		5DEA37F71BA13DF50092161B /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		5DEA37F91BA13F1F0092161B /* CropBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropBox.h; sourceTree = "<group>"; };
+		5DEA37FA1BA13F1F0092161B /* CropBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropBox.m; sourceTree = "<group>"; };
+		5DEA37FC1BA15AE60092161B /* UIImage+imageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageUtilities.h"; sourceTree = "<group>"; };
+		5DEA37FD1BA15AE60092161B /* UIImage+imageUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageUtilities.m"; sourceTree = "<group>"; };
 		5DF94D831B869A20007F12D0 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5DF94D851B869A41007F12D0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		788D7D79482CB607C8EF39A5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +197,14 @@
 				5D271F531B868E2D00D378FE /* Images.xcassets */,
 				5D271F551B868E2D00D378FE /* LaunchScreen.xib */,
 				5D271F461B868E2D00D378FE /* Supporting Files */,
+				5DEA37F31BA0E6C00092161B /* CameraToolbar.h */,
+				5DEA37F41BA0E6C00092161B /* CameraToolbar.m */,
+				5DEA37F61BA13DF50092161B /* CameraViewController.h */,
+				5DEA37F71BA13DF50092161B /* CameraViewController.m */,
+				5DEA37F91BA13F1F0092161B /* CropBox.h */,
+				5DEA37FA1BA13F1F0092161B /* CropBox.m */,
+				5DEA37FC1BA15AE60092161B /* UIImage+imageUtilities.h */,
+				5DEA37FD1BA15AE60092161B /* UIImage+imageUtilities.m */,
 			);
 			path = jcadrg.BloQuery;
 			sourceTree = "<group>";
@@ -369,11 +389,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DE360441B880209002790CE /* User.m in Sources */,
+				5DEA37F81BA13DF50092161B /* CameraViewController.m in Sources */,
 				5D370DA81B951FBD00A6575A /* AnswerTableViewCell.m in Sources */,
 				5D68C4691B8FE12F00234233 /* Query+CellStyleUtilities.m in Sources */,
 				5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */,
+				5DEA37FB1BA13F1F0092161B /* CropBox.m in Sources */,
 				5DEA37F21BA0C8120092161B /* SingleQueryViewController.m in Sources */,
 				5D71483D1B8C23990053E9BA /* ViewController.m in Sources */,
+				5DEA37FE1BA15AE60092161B /* UIImage+imageUtilities.m in Sources */,
+				5DEA37F51BA0E6C00092161B /* CameraToolbar.m in Sources */,
 				5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */,
 				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
