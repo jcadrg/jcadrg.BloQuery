@@ -11,10 +11,10 @@
 #import "DataSource.h"
 #import <ParseUI/ParseUI.h>
 
-#import "CameraViewController.h"
-#import "ImageLibraryViewController.h"
 
-@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate, CameraViewControllerDelegate, ImageLibraryViewControllerDelegate>
+
+
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
@@ -113,20 +113,39 @@
 }
 
 
--(void) logoutTapPressed: (id) sender{
+/*-(void) logoutTapPressed: (id) sender{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:self];
-}
+}*/
 
 #pragma mark - Button tap events
 
 -(void) editProfileImageButtonTap:(id) sender{
     NSLog(@"Editing profile picture");
     
-    UIViewController *imageVC;
+    //UIViewController *imageVC;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        CameraViewController *cameraVC = [[CameraViewController alloc] init];
+        
+        UIAlertController *profileImageEditAlertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Take Photo", @"Take Photo") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self takePhoto];
+        }];
+        
+        UIAlertAction *chooseExistingPhotoAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Choose existing photo", @"Choose existing photo") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self chooseExistingPhoto];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            NSLog(@"Cancel pressed");
+        }];
+        
+        [profileImageEditAlertController addAction:takePhotoAction];
+        [profileImageEditAlertController addAction:chooseExistingPhotoAction];
+        [profileImageEditAlertController addAction:cancelAction];
+        
+        [self presentViewController:profileImageEditAlertController animated:YES completion:nil];
+        /*CameraViewController *cameraVC = [[CameraViewController alloc] init];
         cameraVC.delegate = self;
         imageVC = cameraVC;
     }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
@@ -147,9 +166,9 @@
             [self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
-}
+}*/
 
--(void) handleImage:(UIImage *) image withNavigationController:(UINavigationController *)nav{
+/*-(void) handleImage:(UIImage *) image withNavigationController:(UINavigationController *)nav{
     if (image) {
         NSLog(@"image: %@", image);
         NSLog(@"This is where we upload an image to Parse");
@@ -174,19 +193,40 @@
             self.cameraPopover = nil;
         }
     }
+}*/
+    }
 }
 
--(void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image{
+
+/*-(void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image{
     [self handleImage:image withNavigationController:cameraViewController.navigationController];
+}*/
+
+/*-(void) imageLibraryViewController:(ImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image{
+    [self handleImage:image withNavigationController:imageLibraryViewController];
+}*/
+
+-(void) takePhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
--(void) imageLibraryViewController:(ImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image{
-    [self handleImage:image withNavigationController:imageLibraryViewController];
+-(void) chooseExistingPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - Popover Handling
 
--(void) imageDidFinish:(NSNotification *) notification{
+/*-(void) imageDidFinish:(NSNotification *) notification{
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [self dismissViewControllerAnimated:YES completion:nil];
     
@@ -194,9 +234,25 @@
         [self.cameraPopover dismissPopoverAnimated:YES];
         self.cameraPopover = nil;
     }
+}*/
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *selectedImage = info[UIImagePickerControllerEditedImage];
+    
+    if (selectedImage) {
+        [[DataSource sharedInstance] uploadImage:selectedImage ForUser:[User currentUser] WithCompletionHandler:^(NSError *error){
+            NSLog(@"Image uploaded, time to refresh view");
+            [self.userProfileImageView loadInBackground];
+            [picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
+#pragma mark - profile editing methods
 
 -(void) editProfileDescriptionButtonTap:(id) sender{
     NSLog(@"Editing profile description");
@@ -204,6 +260,10 @@
 
 
 #pragma mark - Login notification methods
+
+-(void) logoutTapPressed:(id) sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:self];
+}
 
 -(void) loginOccurred{
     
