@@ -248,8 +248,26 @@
 
 #pragma mark - Image request
 
--(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
+/*-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock)completionHandler{
     
+}*/
+
+-(void) uploadImage:(UIImage *)image ForUser:(User *)user WithCompletionHandler:(UploadImageForUserCompletionBlock)completionHandler{
+    NSData *imageData = UIImagePNGRepresentation(image);
+    PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+    user.profileImage = imageFile;
+    
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        if (succeeded) {
+            NSLog(@"Image Upload successful!");
+            if (completionHandler) {
+                completionHandler(nil);
+            }
+        
+        }else{
+            NSLog(@"Image upload failed");
+        }
+    }];
 }
 
 #pragma mark - Upvote methods

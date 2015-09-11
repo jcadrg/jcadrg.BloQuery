@@ -206,6 +206,8 @@
         for (AVCaptureInputPort *port in connection.inputPorts) {
             if ([port.mediaType isEqual:AVMediaTypeVideo]) {
                 videoConnection = connection;
+                
+                videoConnection.videoOrientation = AVCaptureVideoOrientationPortrait;
                 break;
             }
         }
@@ -224,6 +226,7 @@
             
             image = [image imageByScalingToSize:self.captureVideoPreviewLayer.bounds.size andCroppingWithRect:cropRect];
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Captured image here. Asking delegate to didCompleteWithImage");
                 [self.delegate cameraViewController:self didCompleteWithImage:image];
             });
         } else {

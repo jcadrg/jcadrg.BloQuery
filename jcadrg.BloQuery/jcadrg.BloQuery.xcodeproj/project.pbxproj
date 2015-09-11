@@ -10,6 +10,9 @@
 		06976BF803F4FC526D5FFC5D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 593F7BE5EF1198FC5AB85F2C /* libPods.a */; };
 		5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B29791B9104CE009B3D54 /* NewAnswer.m */; };
 		5D0B297D1B914FFE009B3D54 /* QueryAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0B297C1B914FFE009B3D54 /* QueryAlertController.m */; };
+		5D1CABBC1BA2858900FACC5F /* MediaFullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1CABBB1BA2858900FACC5F /* MediaFullScreenViewController.m */; };
+		5D1CABBF1BA28FD200FACC5F /* ImageLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1CABBE1BA28FD200FACC5F /* ImageLibraryViewController.m */; };
+		5D1CABC21BA294E400FACC5F /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D1CABC11BA294E400FACC5F /* CropImageViewController.m */; };
 		5D271F491B868E2D00D378FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F481B868E2D00D378FE /* main.m */; };
 		5D271F4C1B868E2D00D378FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D271F4B1B868E2D00D378FE /* AppDelegate.m */; };
 		5D271F521B868E2D00D378FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D271F501B868E2D00D378FE /* Main.storyboard */; };
@@ -55,6 +58,12 @@
 		5D0B29791B9104CE009B3D54 /* NewAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAnswer.m; sourceTree = "<group>"; };
 		5D0B297B1B914FFE009B3D54 /* QueryAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryAlertController.h; sourceTree = "<group>"; };
 		5D0B297C1B914FFE009B3D54 /* QueryAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryAlertController.m; sourceTree = "<group>"; };
+		5D1CABBA1BA2858900FACC5F /* MediaFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFullScreenViewController.h; sourceTree = "<group>"; };
+		5D1CABBB1BA2858900FACC5F /* MediaFullScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFullScreenViewController.m; sourceTree = "<group>"; };
+		5D1CABBD1BA28FD200FACC5F /* ImageLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLibraryViewController.h; sourceTree = "<group>"; };
+		5D1CABBE1BA28FD200FACC5F /* ImageLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLibraryViewController.m; sourceTree = "<group>"; };
+		5D1CABC01BA294E400FACC5F /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
+		5D1CABC11BA294E400FACC5F /* CropImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropImageViewController.m; sourceTree = "<group>"; };
 		5D271F431B868E2D00D378FE /* jcadrg.BloQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcadrg.BloQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D271F471B868E2D00D378FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D271F481B868E2D00D378FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -205,6 +214,12 @@
 				5DEA37FA1BA13F1F0092161B /* CropBox.m */,
 				5DEA37FC1BA15AE60092161B /* UIImage+imageUtilities.h */,
 				5DEA37FD1BA15AE60092161B /* UIImage+imageUtilities.m */,
+				5D1CABBA1BA2858900FACC5F /* MediaFullScreenViewController.h */,
+				5D1CABBB1BA2858900FACC5F /* MediaFullScreenViewController.m */,
+				5D1CABBD1BA28FD200FACC5F /* ImageLibraryViewController.h */,
+				5D1CABBE1BA28FD200FACC5F /* ImageLibraryViewController.m */,
+				5D1CABC01BA294E400FACC5F /* CropImageViewController.h */,
+				5D1CABC11BA294E400FACC5F /* CropImageViewController.m */,
 			);
 			path = jcadrg.BloQuery;
 			sourceTree = "<group>";
@@ -401,11 +416,14 @@
 				5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */,
 				5D0B297A1B9104CE009B3D54 /* NewAnswer.m in Sources */,
 				5D271F491B868E2D00D378FE /* main.m in Sources */,
+				5D1CABBF1BA28FD200FACC5F /* ImageLibraryViewController.m in Sources */,
 				5D7148371B8B15710053E9BA /* DataSource.m in Sources */,
 				5D8F54C81B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m in Sources */,
 				5D7148341B8B14C60053E9BA /* QueryTableViewController.m in Sources */,
 				5DD9C30F1B8990B300B507D7 /* Query.m in Sources */,
+				5D1CABC21BA294E400FACC5F /* CropImageViewController.m in Sources */,
 				5D71483A1B8C0BE40053E9BA /* QueryTableViewCell.m in Sources */,
+				5D1CABBC1BA2858900FACC5F /* MediaFullScreenViewController.m in Sources */,
 				5D8F54D11B98FE400098A6FF /* TabBarController.m in Sources */,
 				5D4188F81B92F156000930C7 /* NewAnswerAlertController.m in Sources */,
 				5D0B297D1B914FFE009B3D54 /* QueryAlertController.m in Sources */,

@@ -51,12 +51,18 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Login" object:self];
         
         QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] init];
-        [navigationController setViewControllers:@[queryTableVC] animated:YES];
+        UINavigationController *feedNavigationController = [[UINavigationController alloc] init];
+        [feedNavigationController setViewControllers:@[queryTableVC] animated:YES];
         
         UserProfileViewController *profileViewController = [[UserProfileViewController alloc] initWithUser:[User currentUser]];
+        //[profileViewController setTitle:@"Profile"];
+        UINavigationController *profileNavigationController = [[UINavigationController alloc] init];
+        [profileNavigationController setViewControllers:@[profileViewController] animated:YES];
         
-        self.viewControllers = [NSArray arrayWithObjects:navigationController, profileViewController ,nil];
+        self.viewControllers = [NSArray arrayWithObjects:feedNavigationController, profileViewController ,nil];
+        
+        [[self.tabBar.items objectAtIndex:0] setTitle:NSLocalizedString(@"Image Feed", @"Image Feed")];
+        [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"User Profile", @"User Profile")];
         
         
     }

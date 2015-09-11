@@ -23,7 +23,9 @@ typedef void (^submittedAnswerCompletionBlock)(NSError *error);
 
 typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
 
-typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
+//typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
+
+typedef void (^UploadImageForUserCompletionBlock)(NSError *error);
 
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
@@ -44,13 +46,16 @@ typedef void (^retrieveUserProfileImageCompletionBlock)(NSError *error);
 -(void) retrieveAnswersForQueries:(Query *) query withCompletionHandler:(requestedAnswerCompletionBlock)completionHandler;
 
 //User profile method
--(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
+//-(void) retrieveUserProfile:(User *)user withCompletionHandler:(retrieveUserProfileImageCompletionBlock) completionHandler;
 
 //Update count of upVotes
 -(void) updateupVoteCounter:(NewAnswer *) answer withCompletionHandler:(upVoteCounterChangeCompletionBlock) completionHandler;
 
 //Upvote status
 -(BOOL) upvoteCurrentState:(NewAnswer *)answer;
+
+//Upload method
+-(void) uploadImage:(UIImage *)image ForUser:(User *)user WithCompletionHandler:(UploadImageForUserCompletionBlock)completionHandler;
 
 
 

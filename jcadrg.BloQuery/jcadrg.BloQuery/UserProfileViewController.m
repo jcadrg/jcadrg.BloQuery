@@ -12,8 +12,9 @@
 #import <ParseUI/ParseUI.h>
 
 #import "CameraViewController.h"
+#import "ImageLibraryViewController.h"
 
-@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate, CameraViewControllerDelegate>
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate, CameraViewControllerDelegate, ImageLibraryViewControllerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
@@ -35,7 +36,8 @@
 
 -(void) viewDidLoad{
     [super viewDidLoad];
-
+    
+    //[self setTitle:NSLocalizedString(@"Profile", nil)];
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.userProfileImageView = [[PFImageView alloc] init];
@@ -97,13 +99,14 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    self.userProfileImageView.frame = CGRectMake(0, 40, 200, 200);
+    self.userProfileImageView.frame = CGRectMake(0, 40, 375, 375);
+    self.userProfileImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.userProfileDescriptionLabel.frame = CGRectMake(0, 540, 400, 20);
     if (self.loggedIn) {
         //self.logoutButton.frame = CGRectMake(0, 530, 320, 50);
-        self.editProfileImageButton.frame = CGRectMake(0, 250, 100, 20);
-        self.editProfileDescriptionButton.frame = CGRectMake(0, 300, 400, 20);
-        self.logoutButton.frame = CGRectMake(0, 560, 320, 50);
+        self.editProfileImageButton.frame = CGRectMake(200, 80, 100, 20);
+        self.editProfileDescriptionButton.frame = CGRectMake(0, 550, 400, 20);
+        self.logoutButton.frame = CGRectMake(0, 570, 320, 50);
     }
     
     
@@ -126,6 +129,10 @@
         CameraViewController *cameraVC = [[CameraViewController alloc] init];
         cameraVC.delegate = self;
         imageVC = cameraVC;
+    }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
+        ImageLibraryViewController *imageLibraryVC = [[ImageLibraryViewController alloc] init];
+        imageLibraryVC.delegate = self;
+        imageVC = imageLibraryVC;
     }
     
     if (imageVC) {
@@ -136,7 +143,8 @@
         }else{
             self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
             self.cameraPopover.popoverContentSize = CGSizeMake(320, 560);
-            [self.cameraPopover presentPopoverFromRect:CGRectMake(0, 0, 100, 20) inView:self.editProfileImageButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            //[self.cameraPopover presentPopoverFromRect:CGRectMake(0, 0, 100, 20) inView:self.editProfileImageButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            [self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
 }
@@ -145,6 +153,18 @@
     if (image) {
         NSLog(@"image: %@", image);
         NSLog(@"This is where we upload an image to Parse");
+        
+        [[DataSource sharedInstance] uploadImage:image ForUser:[User currentUser] WithCompletionHandler:^(NSError *error){
+            NSLog(@"Image finished uploading");
+            [self.userProfileImageView loadInBackground];
+            
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                [nav dismissViewControllerAnimated:YES completion:nil];
+            }else{
+                [self.cameraPopover dismissPopoverAnimated:YES];
+                self.cameraPopover = nil;
+            }
+        }];
         
     }else{
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -158,6 +178,10 @@
 
 -(void) cameraViewController:(CameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image{
     [self handleImage:image withNavigationController:cameraViewController.navigationController];
+}
+
+-(void) imageLibraryViewController:(ImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image{
+    [self handleImage:image withNavigationController:imageLibraryViewController];
 }
 
 #pragma mark - Popover Handling
