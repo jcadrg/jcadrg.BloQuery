@@ -14,16 +14,15 @@
 
 
 
-@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
 @property (nonatomic, strong) UILabel *userProfileDescriptionLabel;
+@property (nonatomic, strong) UITextField *userProfileDescriptionTextField;
 ///@property (weak, nonatomic) IBOutlet UILabel *userProfileDescription;
 
 @property UIButton *editProfileImageButton;
-@property UIButton *editProfileDescriptionButton;
-
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
 
 @property (nonatomic,strong) UIPopoverController *cameraPopover;
@@ -41,26 +40,38 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.userProfileImageView = [[PFImageView alloc] init];
-    self.userProfileImageView.image = [UIImage imageNamed:@"11.png"];
+    //self.userProfileImageView.image = [UIImage imageNamed:@"11.png"];
+    if (self.userProfileImageView.image == nil) {
+        self.userProfileImageView.image = [UIImage imageNamed:@"11.png"];
+    }
+    
     self.userProfileImageView.file = (PFFile *) self.user.profileImage;
     [self.userProfileImageView loadInBackground];
     
-    self.userProfileDescriptionLabel = [[UILabel alloc] init];
+    /*self.userProfileDescriptionLabel = [[UILabel alloc] init];
     self.userProfileDescriptionLabel.text = self.user.userProfileDescription;
     
-    /*self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
-    [self.logoutButton addTarget:self action:@selector(logoutTapPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.logoutButton];*/
     
     for (UIView *view in @[self.userProfileImageView, self.userProfileDescriptionLabel]) {
         [self.view addSubview:view];
-    }
+    }*/
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
+    [self.view addSubview:self.userProfileImageView];
+    
+    
     
     if (self.loggedIn) {
+        
+        self.userProfileDescriptionTextField = [[UITextField alloc] init];
+        self.userProfileDescriptionTextField.text = self.user.userProfileDescription;
+        self.userProfileDescriptionTextField.placeholder = @"Enter profile description";
+        self.userProfileDescriptionTextField.userInteractionEnabled = YES;
+        self.userProfileDescriptionTextField.borderStyle = UITextBorderStyleLine;
+        self.userProfileDescriptionTextField.backgroundColor = [UIColor whiteColor];
+        self.userProfileDescriptionTextField.autocorrectionType = UITextAutocorrectionTypeYes;
+        self.userProfileDescriptionTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        self.userProfileDescriptionTextField.delegate = self;
+        
         self.logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
         [self.logoutButton addTarget:self action:@selector(logoutTapPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,14 +80,22 @@
         [self.editProfileImageButton setTitle:@"Edit Picture" forState:UIControlStateNormal];
         [self.editProfileImageButton addTarget:self action:@selector(editProfileImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.editProfileDescriptionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        /*self.editProfileDescriptionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.editProfileDescriptionButton setTitle:@"Edit Description" forState:UIControlStateNormal];
-        [self.editProfileDescriptionButton addTarget:self action:@selector(editProfileDescriptionButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+        [self.editProfileDescriptionButton addTarget:self action:@selector(editProfileDescriptionButtonTap:) forControlEvents:UIControlEventTouchUpInside];*/
         
-        for (UIView *view in @[self.logoutButton, self.editProfileImageButton, self.editProfileDescriptionButton]) {
+        for (UIView *view in @[self.userProfileDescriptionTextField, self.logoutButton, self.editProfileImageButton]) {
             [self.view addSubview:view];
         }
+    }else{
+        self.userProfileDescriptionLabel = [[UILabel alloc] init];
+        self.userProfileDescriptionLabel.text = self.user.userProfileDescription;
+        
+        [self.view addSubview:self.userProfileDescriptionLabel];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
     
 
 }
@@ -99,14 +118,16 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated{
-    self.userProfileImageView.frame = CGRectMake(0, 40, 375, 375);
+    self.userProfileImageView.frame = CGRectMake(50, 50, 275, 275);
     self.userProfileImageView.contentMode = UIViewContentModeScaleAspectFit;
-    self.userProfileDescriptionLabel.frame = CGRectMake(0, 540, 400, 20);
     if (self.loggedIn) {
         //self.logoutButton.frame = CGRectMake(0, 530, 320, 50);
-        self.editProfileImageButton.frame = CGRectMake(200, 80, 100, 20);
-        self.editProfileDescriptionButton.frame = CGRectMake(0, 550, 400, 20);
-        self.logoutButton.frame = CGRectMake(0, 570, 320, 50);
+        self.editProfileImageButton.frame = CGRectMake(150, 80, 75, 20);
+        
+        self.logoutButton.frame = CGRectMake(0, 500, 375, 50);
+        self.userProfileDescriptionTextField.frame = CGRectMake(0, 360, 375, 40);
+    }else{
+        self.userProfileDescriptionLabel.frame = CGRectMake(0, 360, 375, 40);
     }
     
     
@@ -122,8 +143,6 @@
 
 -(void) editProfileImageButtonTap:(id) sender{
     NSLog(@"Editing profile picture");
-    
-    //UIViewController *imageVC;
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
@@ -145,55 +164,23 @@
         [profileImageEditAlertController addAction:cancelAction];
         
         [self presentViewController:profileImageEditAlertController animated:YES completion:nil];
-        /*CameraViewController *cameraVC = [[CameraViewController alloc] init];
-        cameraVC.delegate = self;
-        imageVC = cameraVC;
+        
     }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]){
-        ImageLibraryViewController *imageLibraryVC = [[ImageLibraryViewController alloc] init];
-        imageLibraryVC.delegate = self;
-        imageVC = imageLibraryVC;
-    }
-    
-    if (imageVC) {
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            [self presentViewController:nav animated:YES completion:nil];
         
-        }else{
-            self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
-            self.cameraPopover.popoverContentSize = CGSizeMake(320, 560);
-            //[self.cameraPopover presentPopoverFromRect:CGRectMake(0, 0, 100, 20) inView:self.editProfileImageButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            [self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-    }
-}*/
-
-/*-(void) handleImage:(UIImage *) image withNavigationController:(UINavigationController *)nav{
-    if (image) {
-        NSLog(@"image: %@", image);
-        NSLog(@"This is where we upload an image to Parse");
+        UIAlertController *userProfileImageEditAlertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        [[DataSource sharedInstance] uploadImage:image ForUser:[User currentUser] WithCompletionHandler:^(NSError *error){
-            NSLog(@"Image finished uploading");
-            [self.userProfileImageView loadInBackground];
-            
-            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                [nav dismissViewControllerAnimated:YES completion:nil];
-            }else{
-                [self.cameraPopover dismissPopoverAnimated:YES];
-                self.cameraPopover = nil;
-            }
+        UIAlertAction *chooseExistingPhotoAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Choose existing photo", @"Choose existing photo") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self chooseExistingPhoto];
         }];
         
-    }else{
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            [nav dismissViewControllerAnimated:YES completion:nil];
-        }else{
-            [self.cameraPopover dismissPopoverAnimated:YES];
-            self.cameraPopover = nil;
-        }
-    }
-}*/
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            NSLog(@"Cancel pressed");
+        }];
+        
+        [userProfileImageEditAlertController addAction:chooseExistingPhotoAction];
+        [userProfileImageEditAlertController addAction:cancelAction];
+        
+        [self presentViewController:userProfileImageEditAlertController animated:YES completion:nil];
     }
 }
 
@@ -240,12 +227,15 @@
     UIImage *selectedImage = info[UIImagePickerControllerEditedImage];
     
     if (selectedImage) {
+        
+        self.userProfileImageView.image = selectedImage;
         [[DataSource sharedInstance] uploadImage:selectedImage ForUser:[User currentUser] WithCompletionHandler:^(NSError *error){
+            
             NSLog(@"Image uploaded, time to refresh view");
-            [self.userProfileImageView loadInBackground];
-            [picker dismissViewControllerAnimated:YES completion:nil];
         }];
     }
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -254,8 +244,23 @@
 
 #pragma mark - profile editing methods
 
--(void) editProfileDescriptionButtonTap:(id) sender{
+/*-(void) editProfileDescriptionButtonTap:(id) sender{
     NSLog(@"Editing profile description");
+}*/
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    return YES;
+}
+
+-(BOOL) textFieldShouldEndEditing:(UITextField *)textField{
+    return YES;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    self.user.userProfileDescription = textField.text;
+    [[DataSource sharedInstance] updateUser:[User currentUser] WithCompletionHandler:nil];
+    [textField resignFirstResponder];
+    return YES;
 }
 
 
