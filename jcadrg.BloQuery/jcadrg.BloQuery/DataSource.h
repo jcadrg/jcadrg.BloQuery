@@ -27,6 +27,8 @@ typedef void (^upVoteCounterChangeCompletionBlock)(NSError *error);
 
 typedef void (^UploadImageForUserCompletionBlock)(NSError *error);
 
+typedef void (^UpdateUserCompletionBlock)(NSError *error);
+
 @property(nonatomic, strong) NSArray *queryElements;
 @property (nonatomic, strong) NSString *configNewQuestion;
 @property (nonatomic, strong) NSString *configNewAnswer;
@@ -56,6 +58,10 @@ typedef void (^UploadImageForUserCompletionBlock)(NSError *error);
 
 //Upload method
 -(void) uploadImage:(UIImage *)image ForUser:(User *)user WithCompletionHandler:(UploadImageForUserCompletionBlock)completionHandler;
+
+//Update user
+-(void) updateUser:(User *)user WithCompletionHandler:(UpdateUserCompletionBlock)completionHandler;
+
 
 
 

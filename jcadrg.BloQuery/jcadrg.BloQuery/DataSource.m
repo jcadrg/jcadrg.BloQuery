@@ -256,19 +256,24 @@
     NSData *imageData = UIImagePNGRepresentation(image);
     PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
     user.profileImage = imageFile;
-    
+    [self updateUser:user WithCompletionHandler:completionHandler];
+}
+
+-(void) updateUser:(User *)user WithCompletionHandler:(UpdateUserCompletionBlock)completionHandler{
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (succeeded) {
             NSLog(@"Image Upload successful!");
             if (completionHandler) {
                 completionHandler(nil);
             }
-        
+            
         }else{
             NSLog(@"Image upload failed");
         }
     }];
+
 }
+
 
 #pragma mark - Upvote methods
 

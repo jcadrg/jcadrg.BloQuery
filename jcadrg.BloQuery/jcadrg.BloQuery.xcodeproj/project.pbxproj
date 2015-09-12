@@ -26,7 +26,6 @@
 		5D8F54C81B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54C71B96B0F50098A6FF /* NewAnswer+NewAnswerUtilities.m */; };
 		5D8F54CB1B98E7F20098A6FF /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54CA1B98E7F20098A6FF /* UserProfileViewController.m */; };
 		5D8F54D11B98FE400098A6FF /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F54D01B98FE400098A6FF /* TabBarController.m */; };
-		5DAC6BEF1B99738E00DD5DE0 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DAC6BEE1B99738E00DD5DE0 /* 11.png */; };
 		5DD9C30F1B8990B300B507D7 /* Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DD9C30E1B8990B300B507D7 /* Query.m */; };
 		5DE360441B880209002790CE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE360431B880209002790CE /* User.m */; };
 		5DEA37F21BA0C8120092161B /* SingleQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEA37F11BA0C8120092161B /* SingleQueryViewController.m */; };
@@ -82,7 +81,6 @@
 		5D8F54CA1B98E7F20098A6FF /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		5D8F54CF1B98FE400098A6FF /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		5D8F54D01B98FE400098A6FF /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		5DAC6BEE1B99738E00DD5DE0 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 11.png; path = ../../../../../Pictures/11.png; sourceTree = "<group>"; };
 		5DD9C30D1B8990B300B507D7 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
 		5DD9C30E1B8990B300B507D7 /* Query.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Query.m; sourceTree = "<group>"; };
 		5DE360421B880209002790CE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		5D271F451B868E2D00D378FE /* jcadrg.BloQuery */ = {
 			isa = PBXGroup;
 			children = (
-				5D8F54D21B9920CE0098A6FF /* Images */,
 				5D271F4A1B868E2D00D378FE /* AppDelegate.h */,
 				5D271F4B1B868E2D00D378FE /* AppDelegate.m */,
 				5D370DA61B951FBD00A6575A /* AnswerTableViewCell.h */,
@@ -213,14 +210,6 @@
 				5D271F611B868E2D00D378FE /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		5D8F54D21B9920CE0098A6FF /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				5DAC6BEE1B99738E00DD5DE0 /* 11.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		9AF199893A01E1542A577E50 /* Pods */ = {
@@ -317,7 +306,6 @@
 				5D271F521B868E2D00D378FE /* Main.storyboard in Resources */,
 				5D271F571B868E2D00D378FE /* LaunchScreen.xib in Resources */,
 				5D271F541B868E2D00D378FE /* Images.xcassets in Resources */,
-				5DAC6BEF1B99738E00DD5DE0 /* 11.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
