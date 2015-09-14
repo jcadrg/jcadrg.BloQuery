@@ -32,12 +32,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTitle:NSLocalizedString(@"News Feed", nil)];
+    [self setTitle:NSLocalizedString(@"News Feed", nil) ];
     
     self.tableView.separatorColor = [UIColor colorWithHexString:@"#dddddd"];
     [self.tableView registerClass:[QueryTableViewCell class] forCellReuseIdentifier:@"queryCell"];
     
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"+", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newQuestionButtonPressed)];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"questions_filled"] style:UIBarButtonItemStylePlain target:self action:@selector(newQuestionButtonPressed)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
@@ -111,9 +111,14 @@
     return queryCell;
 }
 
+-(CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 90;
+}
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    Query *query = [DataSource sharedInstance].queryElements[indexPath.row];
+    return [QueryTableViewCell heightForQuery:query width:CGRectGetWidth(self.view.frame)];
+    
 }
 
 

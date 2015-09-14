@@ -14,7 +14,7 @@
 
 
 
-@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
+@interface  UserProfileViewController()<PFSignUpViewControllerDelegate, PFLogInViewControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property BOOL *loggedIn;
 @property (nonatomic, strong) IBOutlet PFImageView *userProfileImageView;
@@ -22,10 +22,16 @@
 @property (nonatomic, strong) UITextField *userProfileDescriptionTextField;
 ///@property (weak, nonatomic) IBOutlet UILabel *userProfileDescription;
 
-@property UIButton *editProfileImageButton;
+//@property UIButton *editProfileImageButton;
+@property (nonatomic, strong) UITapGestureRecognizer *editProfileImageTapGestureRecognizer;
+
 @property (strong, nonatomic) IBOutlet UIButton *logoutButton;
 
 @property (nonatomic,strong) UIPopoverController *cameraPopover;
+
+@property (nonatomic, strong) NSLayoutConstraint *imageWidthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
+
 
 @end
 
@@ -57,6 +63,7 @@
     }*/
     
     [self.view addSubview:self.userProfileImageView];
+    self.userProfileImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     
     
@@ -66,7 +73,7 @@
         self.userProfileDescriptionTextField.text = self.user.userProfileDescription;
         self.userProfileDescriptionTextField.placeholder = @"Enter profile description";
         self.userProfileDescriptionTextField.userInteractionEnabled = YES;
-        self.userProfileDescriptionTextField.borderStyle = UITextBorderStyleLine;
+        self.userProfileDescriptionTextField.borderStyle = UITextBorderStyleNone;
         self.userProfileDescriptionTextField.backgroundColor = [UIColor whiteColor];
         self.userProfileDescriptionTextField.autocorrectionType = UITextAutocorrectionTypeYes;
         self.userProfileDescriptionTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -76,29 +83,95 @@
         [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
         [self.logoutButton addTarget:self action:@selector(logoutTapPressed:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.editProfileImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        /*self.editProfileImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.editProfileImageButton setTitle:@"Edit Picture" forState:UIControlStateNormal];
-        [self.editProfileImageButton addTarget:self action:@selector(editProfileImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];
+        [self.editProfileImageButton addTarget:self action:@selector(editProfileImageButtonTap:) forControlEvents:UIControlEventTouchUpInside];*/
         
         /*self.editProfileDescriptionButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.editProfileDescriptionButton setTitle:@"Edit Description" forState:UIControlStateNormal];
         [self.editProfileDescriptionButton addTarget:self action:@selector(editProfileDescriptionButtonTap:) forControlEvents:UIControlEventTouchUpInside];*/
         
-        for (UIView *view in @[self.userProfileDescriptionTextField, self.logoutButton, self.editProfileImageButton]) {
+        self.editProfileImageTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editProfileImage:)];
+        self.editProfileImageTapGestureRecognizer.delegate = self;
+        [self.userProfileImageView addGestureRecognizer:self.editProfileImageTapGestureRecognizer];
+        self.userProfileImageView.userInteractionEnabled = YES;
+        
+        for (UIView *view in @[self.userProfileDescriptionTextField, self.logoutButton]) {
             [self.view addSubview:view];
+            view.translatesAutoresizingMaskIntoConstraints = NO;
         }
     }else{
         self.userProfileDescriptionLabel = [[UILabel alloc] init];
         self.userProfileDescriptionLabel.text = self.user.userProfileDescription;
         
         [self.view addSubview:self.userProfileDescriptionLabel];
+        self.userProfileDescriptionLabel.translatesAutoresizingMaskIntoConstraints=NO;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];
+    /*[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOccurred) name:@"Login" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutOccurred) name:@"Logout" object:nil];*/
+    
+    [self createConstraints];
     
 
 }
+
+-(void) createConstraints{
+    self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_userProfileImageView
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeWidth
+                                                            multiplier:1.0
+                                                              constant:0];
+    
+    self.imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_userProfileImageView
+                                                              attribute:NSLayoutAttributeHeight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.view
+                                                              attribute:NSLayoutAttributeWidth
+                                                             multiplier:1.0
+                                                               constant:0];
+    
+    [self.view addConstraints:@[self.imageWidthConstraint, self.imageHeightConstraint]];
+    
+    if (self.loggedIn) {
+        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_userProfileImageView, _userProfileDescriptionTextField, _logoutButton);
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_userProfileDescriptionTextField]|"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_userProfileImageView][_userProfileDescriptionTextField]"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_logoutButton]|"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_logoutButton]-58-|"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+        
+    }else{
+        
+        NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_userProfileImageView, _userProfileDescriptionLabel);
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_userProfileDescriptionLabel]|"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_userProfileImageView][_userProfileDescriptionLabel]"
+                                                                          options:kNilOptions
+                                                                          metrics:nil
+                                                                            views:viewDictionary]];
+    }
+}
+
+
+
 
 -(void) didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
@@ -117,7 +190,7 @@
     return self;
 }
 
--(void) viewDidAppear:(BOOL)animated{
+/*-(void) viewDidAppear:(BOOL)animated{
     self.userProfileImageView.frame = CGRectMake(50, 50, 275, 275);
     self.userProfileImageView.contentMode = UIViewContentModeScaleAspectFit;
     if (self.loggedIn) {
@@ -131,7 +204,7 @@
     }
     
     
-}
+}*/
 
 
 /*-(void) logoutTapPressed: (id) sender{
@@ -141,7 +214,7 @@
 
 #pragma mark - Button tap events
 
--(void) editProfileImageButtonTap:(id) sender{
+-(void) editProfileImage:(id) sender{
     NSLog(@"Editing profile picture");
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -270,13 +343,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Logout" object:self];
 }
 
--(void) loginOccurred{
-    
-}
 
--(void) logoutOccurred{
-    
-}
 
 
 @end

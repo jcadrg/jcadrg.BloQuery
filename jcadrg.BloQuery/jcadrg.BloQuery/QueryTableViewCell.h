@@ -27,4 +27,6 @@
 @property (nonatomic, weak) id <QueryTableViewCellDelegate> delegate;
 @property (nonatomic, strong) Query *query;
 
++(CGFloat)heightForQuery:(Query *)query width:(CGFloat) width;
+
 @end

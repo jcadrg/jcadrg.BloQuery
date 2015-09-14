@@ -102,8 +102,7 @@ static NSParagraphStyle *paragraphStyle;
      
      [self setTitle:NSLocalizedString(userString, nil)];*/
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Answer", nil) style:UIBarButtonItemStylePlain target:self action:@selector(newAnswerButtonPressed)];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"comments"] style:UIBarButtonItemStylePlain target:self action:@selector(newAnswerButtonPressed)];
     self.answersTableView.separatorColor = [UIColor colorWithHexString:@"#000000"];
     [self.answersTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"answerCell"];
 }

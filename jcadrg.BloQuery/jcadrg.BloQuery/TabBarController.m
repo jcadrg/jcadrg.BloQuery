@@ -12,6 +12,8 @@
 #import "DataSource.h"
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import <QuartzCore/QuartzCore.h>
+#import "NavigationController.h"
 #import "HexColors.h"
 #import "QueryTableViewController.h"
 
@@ -21,7 +23,32 @@
 
 @end
 
+static UIFont *tabBarFont;
+static UIColor *tabBarColor;
+static UIColor *tabBarSelectedColor;
+static UIColor *tabBarBackgroundColor;
+
 @implementation TabBarController
+
++(void)load{
+    tabBarFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    tabBarColor = [UIColor colorWithHexString:@"#DDDDDD" alpha:1.0];
+    tabBarSelectedColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:1.0];
+    tabBarBackgroundColor = [UIColor colorWithHexString: @"#2D0A4A" alpha: 1.0];
+}
+
+-(id) init{
+    self = [super init];
+    if (self) {
+        [UITabBarItem.appearance setTitleTextAttributes:@{NSFontAttributeName: tabBarFont, NSForegroundColorAttributeName:tabBarColor,} forState:UIControlStateNormal];
+        [UITabBarItem.appearance setTitleTextAttributes:@{NSFontAttributeName: tabBarFont, NSForegroundColorAttributeName: tabBarSelectedColor,} forState:UIControlStateNormal];
+        
+        [[UITabBar appearance] setTintColor:tabBarSelectedColor];
+        [[UITabBar appearance] setBarTintColor:tabBarBackgroundColor];
+    }
+    
+    return self;
+}
 
 -(void) viewDidLoad{
     [super viewDidLoad];
@@ -50,7 +77,7 @@
         [[DataSource sharedInstance] retrieveParseConfig];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Login" object:self];
         
-        QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
+        /*QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
         UINavigationController *feedNavigationController = [[UINavigationController alloc] init];
         [feedNavigationController setViewControllers:@[queryTableVC] animated:YES];
         
@@ -62,7 +89,28 @@
         self.viewControllers = [NSArray arrayWithObjects:feedNavigationController, profileViewController ,nil];
         
         [[self.tabBar.items objectAtIndex:0] setTitle:NSLocalizedString(@"Image Feed", @"Image Feed")];
-        [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"User Profile", @"User Profile")];
+        [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"User Profile", @"User Profile")];*/
+        if (self.viewControllers.count == 0) {
+            QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
+            UIImage *feedImage = [UIImage imageNamed:@"overview_pages_3"];
+            UIImage *selectedFeedImage = [UIImage imageNamed:@"overview_pages_3-1"];
+            [queryTableVC.tabBarItem setImage:[feedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [queryTableVC.tabBarItem setSelectedImage:selectedFeedImage];
+            NavigationController *feedNavigationController = [[NavigationController alloc]init];
+            [feedNavigationController setViewControllers:@[queryTableVC] animated:YES];
+            
+            UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:[User currentUser]];
+            UIImage *userProfileImage = [UIImage imageNamed:@"approve"];
+            UIImage *selectedUserProfileImage =[UIImage imageNamed:@"approve-1"];
+            [profileVC.tabBarItem setImage:[userProfileImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [profileVC.tabBarItem setSelectedImage:selectedUserProfileImage];
+            NavigationController *userProfileNavigationController = [[NavigationController alloc] init];
+            [userProfileNavigationController setViewControllers:@[profileVC] animated:YES];
+            
+            self.viewControllers = [NSArray arrayWithObjects:feedNavigationController, userProfileNavigationController, nil];
+            [[self.tabBar.items objectAtIndex:0] setTitle:NSLocalizedString(@"News Feed", @"News Feed")];
+            [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"Profile", @"Profile")];
+        }
         
         
     }

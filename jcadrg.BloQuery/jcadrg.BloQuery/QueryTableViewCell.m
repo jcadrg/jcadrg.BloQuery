@@ -9,6 +9,8 @@
 #import "QueryTableViewCell.h"
 #import "Query+CellStyleUtilities.h"
 #import "HexColors.h"
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 #import <QuartzCore/QuartzCore.h>  
 
@@ -18,8 +20,13 @@
 @property (nonatomic, strong) UILabel *askerLabel;
 @property (nonatomic, strong) UILabel *answerCounter;
 
+@property (nonatomic, strong) PFImageView *userProfileImageView;
+
 @property (nonatomic, strong) UITapGestureRecognizer *queryTapGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *userTapGestureRecognizer;
+
+@property (nonatomic, strong) NSLayoutConstraint *imageWidthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
 
 @end
 
@@ -43,30 +50,37 @@ static NSParagraphStyle *paragraphStyle;
 
 +(void)load{
     
-    /*askerAndQueryLabelFont = [UIFont fontWithName:@"Helvetica-Neue" size:14];
-    askerAndQueryLabelColor =[UIColor whiteColor];
-    
-    answerCounterFont = [UIFont fontWithName:@"Georgia" size:11];
-    answerCounterColor = [UIColor whiteColor];*/
     
     queryFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
     askerFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
-    queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
+    askerColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
     answerCounterFont = [UIFont fontWithName:@"Georgia" size:12];
-    queryColor = [UIColor colorWithHexString:@"#000000"];
+    answerCounterColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
     
     
     NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-        mutableParagraphStyle.headIndent = 10.0;
-        mutableParagraphStyle.firstLineHeadIndent = 5.0;
-        mutableParagraphStyle.tailIndent = -10.0;
-        mutableParagraphStyle.paragraphSpacingBefore = 1;
+        mutableParagraphStyle.headIndent = 0;
+        mutableParagraphStyle.firstLineHeadIndent = 0;
+        mutableParagraphStyle.tailIndent = 0;
+        mutableParagraphStyle.paragraphSpacingBefore = 0;
     
         paragraphStyle = mutableParagraphStyle;
+}
+
++(CGFloat) heightForQuery:(Query *)query width:(CGFloat)width{
+    QueryTableViewCell *layout = [[QueryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layout"];
+    layout.query = query;
+    
+    layout.frame = CGRectMake(0, 0,width,  CGRectGetHeight(layout.frame));
+    
+    [layout setNeedsLayout];
+    [layout layoutIfNeeded];
+    
+    return CGRectGetMaxY(layout.answerCounter.frame) + 20;
 }
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -76,9 +90,14 @@ static NSParagraphStyle *paragraphStyle;
     if (self) {
         
         self.queryLabel = [[UILabel alloc] init];
-        self.queryLabel.numberOfLines = 5;
+        self.queryLabel.numberOfLines = 0;
         self.queryLabel.textColor = queryColor;
         self.queryLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
+        self.userProfileImageView = [[PFImageView alloc] init];
+        if (self.userProfileImageView == nil) {
+            self.userProfileImageView.image = [UIImage imageNamed:@"11.png"];
+        }
         
         self.askerLabel = [[UILabel alloc] init];
         self.askerLabel.numberOfLines =1;
@@ -99,11 +118,12 @@ static NSParagraphStyle *paragraphStyle;
         [self.askerLabel addGestureRecognizer:self.userTapGestureRecognizer];
         self.askerLabel.userInteractionEnabled = YES;
         
-        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter]) {
+        for (UIView *view in @[self.queryLabel, self.askerLabel, self.answerCounter, self.userProfileImageView]) {
             [self.contentView addSubview:view];
+            view.translatesAutoresizingMaskIntoConstraints = NO;
         }
     
-        
+        [self createConstraints];
         
     }
     return self;
@@ -111,22 +131,59 @@ static NSParagraphStyle *paragraphStyle;
 
 
 
--(void) layoutSubviews{
-    [super layoutSubviews];
+
+
+-(void) createConstraints{
+    NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_userProfileImageView,_askerLabel,_queryLabel,_answerCounter);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_userProfileImageView]-8-[_askerLabel]"
+                                                                             options:NSLayoutFormatAlignAllTop
+                                                                             metrics:nil
+                                                                               views:viewDictionary]];
     
-    CGFloat padding = 10;
-    CGFloat queryLabelHeight = 40;
-    CGFloat askerLabelHeight = 10;
-    CGFloat answerCounterLabelHeight = 10;
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_userProfileImageView]-8-[_queryLabel]"
+                                                                             options:kNilOptions
+                                                                             metrics:nil
+                                                                               views:viewDictionary]];
     
-    self.queryLabel.frame = CGRectMake(padding, padding, CGRectGetWidth(self.contentView.bounds)-(2 * padding), queryLabelHeight);
-    self.askerLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.queryLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), askerLabelHeight);
-    self.answerCounter.frame = CGRectMake(padding, CGRectGetMaxY(self.askerLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), answerCounterLabelHeight);
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[_userProfileImageView]-8-[_answerCounter]"
+                                                                             options:kNilOptions
+                                                                             metrics:nil
+                                                                               views:viewDictionary]];
     
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[_userProfileImageView]"
+                                                                             options:kNilOptions
+                                                                             metrics:nil
+                                                                               views:viewDictionary]];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_askerLabel][_queryLabel][_answerCounter]"
+                                                                             options:kNilOptions
+                                                                             metrics:nil
+                                                                               views:viewDictionary]];
+    
+    self.imageWidthConstraint = [NSLayoutConstraint constraintWithItem:_userProfileImageView
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.contentView
+                                                             attribute:NSLayoutAttributeWidth
+                                                            multiplier:0.15
+                                                              constant:0];
+    
+    self.imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_userProfileImageView
+                                                              attribute:NSLayoutAttributeHeight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:_userProfileImageView
+                                                              attribute:NSLayoutAttributeWidth
+                                                             multiplier:1
+                                                               constant:0];
+    
+    [self.contentView addConstraints:@[self.imageWidthConstraint, self.imageHeightConstraint]];
 }
 
 -(void) setQuery:(Query *)query{
     _query =query;
+    
+    self.userProfileImageView.file = (PFFile *)self.query.user.profileImage;
+    [self.userProfileImageView loadInBackground];
     
     self.queryLabel.attributedText = [self.query queryStringFont:queryFont paragraphStyle:paragraphStyle ];
     self.askerLabel.attributedText = [self.query askerStringFont:askerFont paragraphStyle:paragraphStyle];

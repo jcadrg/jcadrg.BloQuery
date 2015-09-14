@@ -135,9 +135,12 @@ static NSParagraphStyle *paragraphStyle;
 -(void) setState:(BOOL)state{
     _state = state;
     if (_state == YES) {
-        [self.upVoteButton setTitle:@"UpVoted" forState:UIControlStateNormal];
+        [self.upVoteButton setImage:[[UIImage imageNamed:@"good_quality_filled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
     }else{
-        [self.upVoteButton setTitle:@"UpVote" forState:UIControlStateNormal];
+        [self.upVoteButton setImage:[[UIImage imageNamed:@"good_quality"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+
     }
 }
 
