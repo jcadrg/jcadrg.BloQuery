@@ -5,3 +5,6 @@ pod 'HexColors', '~> 2.3'
 
 pod 'SDCAlertView'
 
+pod 'SYFavoriteButton'
+
+

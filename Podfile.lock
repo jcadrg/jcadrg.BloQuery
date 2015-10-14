@@ -11,11 +11,13 @@ PODS:
     - RBBAnimation (~> 0.3)
     - SDCAutoLayout (~> 2.0)
   - SDCAutoLayout (2.0.3)
+  - SYFavoriteButton (1.0)
 
 DEPENDENCIES:
   - HexColors (~> 2.3)
   - ParseUI
   - SDCAlertView
+  - SYFavoriteButton
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
@@ -25,5 +27,6 @@ SPEC CHECKSUMS:
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   SDCAlertView: f9706c18f456ea87909f8f199704cd28e582ff27
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
+  SYFavoriteButton: abb3a4bd3607f848f047e015c64e780f8c5283db
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

@@ -31,10 +31,10 @@ static UIColor *tabBarBackgroundColor;
 @implementation TabBarController
 
 +(void)load{
-    tabBarFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
-    tabBarColor = [UIColor colorWithHexString:@"#DDDDDD" alpha:1.0];
-    tabBarSelectedColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:1.0];
-    tabBarBackgroundColor = [UIColor colorWithHexString: @"#2D0A4A" alpha: 1.0];
+    tabBarFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:10];
+    tabBarColor = [UIColor colorWithHexString:@"#B0C4DE" alpha:1.0];
+    tabBarSelectedColor = [UIColor colorWithHexString:@"#B0C4DE" alpha:1.0];
+    tabBarBackgroundColor = [UIColor colorWithHexString: @"#EDEDED" alpha: 1.0];
 }
 
 -(id) init{
@@ -92,17 +92,22 @@ static UIColor *tabBarBackgroundColor;
         [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"User Profile", @"User Profile")];*/
         if (self.viewControllers.count == 0) {
             QueryTableViewController *queryTableVC = [[QueryTableViewController alloc] init];
-            UIImage *feedImage = [UIImage imageNamed:@"overview_pages_3"];
+            
+            //UIImage *feedImage = [UIImage imageNamed:@"overview_pages_3"];
+            
             UIImage *selectedFeedImage = [UIImage imageNamed:@"overview_pages_3-1"];
-            [queryTableVC.tabBarItem setImage:[feedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            
+            [queryTableVC.tabBarItem setImage:[selectedFeedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
             [queryTableVC.tabBarItem setSelectedImage:selectedFeedImage];
             NavigationController *feedNavigationController = [[NavigationController alloc]init];
             [feedNavigationController setViewControllers:@[queryTableVC] animated:YES];
             
             UserProfileViewController *profileVC = [[UserProfileViewController alloc] initWithUser:[User currentUser]];
-            UIImage *userProfileImage = [UIImage imageNamed:@"approve"];
+            //UIImage *userProfileImage = [UIImage imageNamed:@"approve"];
+            
             UIImage *selectedUserProfileImage =[UIImage imageNamed:@"approve-1"];
-            [profileVC.tabBarItem setImage:[userProfileImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            
+            [profileVC.tabBarItem setImage:[selectedUserProfileImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
             [profileVC.tabBarItem setSelectedImage:selectedUserProfileImage];
             NavigationController *userProfileNavigationController = [[NavigationController alloc] init];
             [userProfileNavigationController setViewControllers:@[profileVC] animated:YES];

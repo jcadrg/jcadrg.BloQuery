@@ -73,13 +73,13 @@ static NSParagraphStyle *paragraphStyle;
 
 +(void) load{
     
-    queryFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+    queryFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:15];
     queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
-    askerFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+    askerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     queryColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
-    answerCounterFont = [UIFont fontWithName:@"Georgia" size:12];
+    answerCounterFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     queryColor = [UIColor colorWithHexString:@"#000000"];
     
     
@@ -288,7 +288,7 @@ static NSParagraphStyle *paragraphStyle;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return UITableViewAutomaticDimension;
 }
 
 

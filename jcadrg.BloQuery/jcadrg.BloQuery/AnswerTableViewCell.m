@@ -10,6 +10,8 @@
 #import "HexColors.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NewAnswer+NewAnswerUtilities.h"
+#import <SYFavoriteButton.h>
+
 
 @interface AnswerTableViewCell()
 
@@ -19,6 +21,12 @@
 @property (nonatomic, strong) UIButton *upVoteButton;
 
 @property (nonatomic, strong) UITapGestureRecognizer *userAnswerTapGestureRecognizer;
+
+
+
+
+
+
 
 @end
 
@@ -36,19 +44,21 @@ static NSParagraphStyle *paragraphStyle;
 
 +(void) load{
     
-    answerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+    answerFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:15];
     answerColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
-    answerUserFont = [UIFont fontWithName:@"Georgia" size:12];
+    answerUserFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     answerUserColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
-    upVoteCountFont = [UIFont fontWithName:@"Georgia" size:10];
+    upVoteCountFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
     upVoteCountColor = [UIColor colorWithHexString:@"#000000" alpha:1.0];
     
+    
+    
     NSMutableParagraphStyle *mutableParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    mutableParagraphStyle.headIndent = 10.0;
+    mutableParagraphStyle.headIndent = 5.0;
     mutableParagraphStyle.firstLineHeadIndent = 5.0;
-    mutableParagraphStyle.tailIndent = -10.0;
+    mutableParagraphStyle.tailIndent = -5.0;
     mutableParagraphStyle.paragraphSpacingBefore = 1;
     
     paragraphStyle = mutableParagraphStyle;
@@ -73,9 +83,12 @@ static NSParagraphStyle *paragraphStyle;
         self.upVoteCountLabel.numberOfLines = 1;
         self.upVoteCountLabel.textColor = upVoteCountColor;
         
-        self.upVoteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        self.upVoteButton = [SYFavoriteButton buttonWithType:UIButtonTypeCustom];
+        
         //[self.upVoteButton setTitle:@"upVote" forState:UIControlStateNormal];
         [self.upVoteButton addTarget:self action:@selector(upVotePressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         
         self.userAnswerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(answerUserTapFired:)];
         self.userAnswerTapGestureRecognizer.delegate = self;
@@ -92,6 +105,8 @@ static NSParagraphStyle *paragraphStyle;
 -(void) upVotePressed:(UIButton *) sender{
     NSLog(@"Up Vote button pressed!");
     [self.delegate didTapupVoteButton:self];
+    
+
     
 }
 
@@ -115,9 +130,11 @@ static NSParagraphStyle *paragraphStyle;
     
     self.answerUserLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerLabel.frame)+padding, CGRectGetWidth(self.bounds)-(2 * padding), answerUserHeight);
     self.upVoteCountLabel.frame = CGRectMake(padding, CGRectGetMaxY(self.answerUserLabel.frame) + padding, CGRectGetWidth(self.bounds)/2 - padding, answerCountHeight);
-    self.upVoteButton.frame = CGRectMake(CGRectGetMaxX(self.upVoteCountLabel.frame), CGRectGetMaxY(self.answerUserLabel.frame)+padding,CGRectGetWidth(self.bounds)/2 - padding, answerCountHeight);
-    
+    self.upVoteButton.frame = CGRectMake(CGRectGetMaxX(self.upVoteCountLabel.frame), CGRectGetMaxY(self.answerUserLabel.frame)+padding,20, 20);
+
 }
+
+//CGRectGetWidth(self.bounds)/4 - padding, answerCountHeight
 
 -(void) answerUserTapFired:(UIGestureRecognizer *) sender{
     [self.delegate didTapUserAnswerLabel:self];
@@ -135,14 +152,24 @@ static NSParagraphStyle *paragraphStyle;
 -(void) setState:(BOOL)state{
     _state = state;
     if (_state == YES) {
-        [self.upVoteButton setImage:[[UIImage imageNamed:@"good_quality_filled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        
+        [self.upVoteButton setImage:[[UIImage imageNamed:@"like_filled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.upVoteButton.contentMode = UIViewContentModeScaleAspectFill;
+
 
     }else{
-        [self.upVoteButton setImage:[[UIImage imageNamed:@"good_quality"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        
+        [self.upVoteButton setImage:[[UIImage imageNamed:@"hearts_filled"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.upVoteButton.contentMode = UIViewContentModeScaleAspectFill;
 
 
     }
 }
+
+#pragma mark - Button animation methods
+
+
+
 
 
 

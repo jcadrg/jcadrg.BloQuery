@@ -18,8 +18,8 @@ static UIColor *navBarColor;
 
 +(void)load{
     navBarFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-    navBarFontColor = [UIColor colorWithHexString:@"#DDDDDD" alpha:1.0];
-    navBarColor = [UIColor colorWithHexString: @"#2D0A4A" alpha: 1.0];
+    navBarFontColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:1.0];
+    navBarColor = [UIColor colorWithHexString: @"#B7C9E1" alpha: 1.0];
     
 }
 
